@@ -1,0 +1,468 @@
+##-----------------------------------------------------------------------------
+##
+## (c) Copyright 2010-2011 Xilinx, Inc. All rights reserved.
+##
+## This file contains confidential and proprietary information
+## of Xilinx, Inc. and is protected under U.S. and
+## international copyright and other intellectual property
+## laws.
+##
+## DISCLAIMER
+## This disclaimer is not a license and does not grant any
+## rights to the materials distributed herewith. Except as
+## otherwise provided in a valid license issued to you by
+## Xilinx, and to the maximum extent permitted by applicable
+## law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+## WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES
+## AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING
+## BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-
+## INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+## (2) Xilinx shall not be liable (whether in contract or tort,
+## including negligence, or under any other theory of
+## liability) for any loss or damage of any kind or nature
+## related to, arising under or in connection with these
+## materials, including for any direct, or any indirect,
+## special, incidental, or consequential loss or damage
+## (including loss of data, profits, goodwill, or any type of
+## loss or damage suffered as a result of any action brought
+## by a third party) even if such damage or loss was
+## reasonably foreseeable or Xilinx had been advised of the
+## possibility of the same.
+##
+## CRITICAL APPLICATIONS
+## Xilinx products are not designed or intended to be fail-
+## safe, or for use in any application requiring fail-safe
+## performance, such as life-support or safety devices or
+## systems, Class III medical devices, nuclear facilities,
+## applications related to the deployment of airbags, or any
+## other applications that could lead to death, personal
+## injury, or severe property or environmental damage
+## (individually and collectively, "Critical
+## Applications"). Customer assumes the sole risk and
+## liability of any use of Xilinx products in Critical
+## Applications, subject only to applicable laws and
+## regulations governing limitations on product liability.
+##
+## THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
+## PART OF THIS FILE AT ALL TIMES.
+##
+##-----------------------------------------------------------------------------
+## Project    : Series-7 Integrated Block for PCI Express
+## File       : xilinx_pcie_2_1_ep_7x_04_lane_gen2_xc7a200t-fbg676-2_AC701.ucf
+## Version    : 1.11
+
+###############################################################################
+# Define Device, Package And Speed Grade
+###############################################################################
+
+CONFIG PART = xc7a200t-fbg676-2;
+
+###############################################################################
+# Pinout and Related I/O Constraints
+###############################################################################
+
+#
+# SYS reset (input) signal.  The sys_reset_n signal should be
+# obtained from the PCI Express interface if possible.  For
+# slot based form factors, a system reset signal is usually
+# present on the connector.  For cable based form factors, a
+# system reset signal may not be available.  In this case, the
+# system reset signal must be generated locally by some form of
+# supervisory circuit.  You may change the IOSTANDARD and LOC
+# to suit your requirements and VCCO voltage banking rules.
+# Some 7 series devices do not have 3.3 V I/Os available.
+# Therefore the appropriate level shift is required to operate
+# with these devices that contain only 1.8 V banks.
+#
+
+NET "sys_reset_n" NODELAY = "TRUE" | LOC = M20 | CLOCK_DEDICATED_ROUTE = FALSE | TIG;
+NET "sys_reset_n" IOSTANDARD = LVCMOS33;
+
+
+# SYS clock 100 MHz (input) signal. The sys_clk_p and sys_clk_n
+# signals are the PCI Express reference clock. Virtex-7 GT
+# Transceiver architecture requires the use of a dedicated clock
+# resources (FPGA input pins) associated with each GT Transceiver.
+# To use these pins an IBUFDS primitive (refclk_ibuf) is
+# instantiated in user's design.
+# Please refer to the Virtex-7 GT Transceiver User Guide
+# (UG) for guidelines regarding clock resource selection.
+#
+INST "refclk_ibuf" LOC = IBUFDS_GTE2_X0Y2;
+
+#
+# Transceiver instance placement.  This constraint selects the
+# transceivers to be used, which also dictates the pinout for the
+# transmit and receive differential pairs.  Please refer to the
+# Virtex-7 GT Transceiver User Guide (UG) for more information.
+#
+
+# PCIe Lane 0
+INST "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[0].gt_wrapper_i/gtp_channel.gtpe2_channel_i" LOC = GTPE2_CHANNEL_X0Y7;
+# PCIe Lane 1
+INST "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[1].gt_wrapper_i/gtp_channel.gtpe2_channel_i" LOC = GTPE2_CHANNEL_X0Y6;
+# PCIe Lane 2
+INST "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[2].gt_wrapper_i/gtp_channel.gtpe2_channel_i" LOC = GTPE2_CHANNEL_X0Y5;
+# PCIe Lane 3
+INST "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[3].gt_wrapper_i/gtp_channel.gtpe2_channel_i" LOC = GTPE2_CHANNEL_X0Y4;
+
+# GTP Common Placement
+INST "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[0].pipe_quad.pipe_common.qpll_wrapper_i/gtp_common.gtpe2_common_i" LOC = GTPE2_COMMON_X0Y1;
+
+#
+# PCI Express Block placement. This constraint selects the PCI Express
+# Block to be used.
+#
+
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_block_i" LOC = PCIE_X0Y0;
+
+#
+# BlockRAM placement
+#
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_rx/brams[3].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X2Y46;
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_rx/brams[2].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X1Y47;
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_rx/brams[1].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X1Y46;
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_rx/brams[0].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X1Y45;
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_tx/brams[0].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X1Y44;
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_tx/brams[1].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X1Y43;
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_tx/brams[2].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X1Y42;
+INST "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_bram_top/pcie_brams_tx/brams[3].ram/use_tdp.ramb36/ramb_bl.ramb36_dp_bl.ram36_bl" LOC = RAMB36_X1Y41;
+
+# Lock down the FIFO
+#INST "v7_pcie_i/FPC_top_i/pr_loader_i/PIO_FPC_i/PIO_EP_FPC_inst/data_transfer_i/fastConfigFIFO_i/U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf18e1_inst.sngfifo18e1" LOC = RAMB18_X4Y74 ;
+
+
+###############################################################################
+# Timing Constraints
+###############################################################################
+
+NET "sys_clk_c" TNM_NET = "SYSCLK";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/clk_125mhz" TNM_NET = "CLK_125";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/clk_250mhz" TNM_NET = "CLK_250";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/userclk1" TNM_NET = "CLK_USERCLK";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/userclk2" TNM_NET = "CLK_USERCLK2";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/userclk2" TIG;
+
+TIMESPEC TS_SYSCLK = PERIOD "SYSCLK" 100 MHz HIGH 50 %;
+TIMESPEC TS_CLK_250 = PERIOD "CLK_250" TS_SYSCLK * 2.5 HIGH 50 % PRIORITY 1;
+TIMESPEC TS_CLK_125 = PERIOD "CLK_125" TS_SYSCLK * 1.25 HIGH 50 % PRIORITY 2;
+TIMESPEC TS_CLK_USERCLK = PERIOD "CLK_USERCLK" TS_SYSCLK * 2.5 HIGH 50 %;
+TIMESPEC TS_CLK_USERCLK2 = PERIOD "CLK_USERCLK2" TS_SYSCLK * 2.5 HIGH 50 %;
+
+INST "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/mmcm_i" LOC = MMCME2_ADV_X0Y2;
+
+PIN "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_block_i.PLPHYLNKUPN" TIG;
+PIN "make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/pcie_block_i.PLRECEIVEDHOTRST" TIG;
+
+PIN "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/mmcm_i.RST" TIG;
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/user_resetdone*" TIG;
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_clock_int.pipe_clock_i/pclk_sel" TIG;
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[0].gtp_pipe_rate.gtp_pipe_rate_i/*" TNM_NET =  FFS "MC_PIPE";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[1].gtp_pipe_rate.gtp_pipe_rate_i/*" TNM_NET =  FFS "MC_PIPE";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[2].gtp_pipe_rate.gtp_pipe_rate_i/*" TNM_NET =  FFS "MC_PIPE";
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[3].gtp_pipe_rate.gtp_pipe_rate_i/*" TNM_NET =  FFS "MC_PIPE";
+
+TIMESPEC TS_PIPE_RATE = FROM "MC_PIPE" TS_CLK_USERCLK * 0.5;
+
+
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/gtp_pipe_reset.gtp_pipe_reset_i/pllreset" TIG;
+NET "make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/qpll_reset.qpll_reset_i/*" TIG;
+
+###############################################################################
+# Physical Constraints
+###############################################################################
+#INST "make4Lanes.pcieCore/*" AREA_GROUP = "AG_core" ;
+#AREA_GROUP "AG_core" RANGE = SLICE_X136Y147:SLICE_X155Y120 ;
+########################################################################################################################
+# End PCIe Core Constraints
+#########################################################################################################################
+
+
+NET "userclk_200MHz_n" TIG;
+NET "userclk_200MHz_n" LOC = P3;
+NET "userclk_200MHz_n" IOSTANDARD = LVDS_25;
+NET "userclk_200MHz_n" DIFF_TERM = "TRUE";
+NET "userclk_200MHz_p" TIG;
+NET "userclk_200MHz_p" LOC = R3;
+NET "userclk_200MHz_p" IOSTANDARD = LVDS_25;
+NET "userclk_200MHz_p" DIFF_TERM = "TRUE";
+NET "userclk_200MHz_p" TNM_NET = "userclk_200MHz_p";
+TIMESPEC TS_userclk_200MHz_p = PERIOD "userclk_200MHz_p" 200 MHz HIGH 50 %;
+NET "userclk_200MHz_n" TNM_NET = "userclk_200MHz_n";
+TIMESPEC TS_userclk_200MHz_n = PERIOD "userclk_200MHz_n" 200 MHz HIGH 50 %;
+
+#NET "adc_dco_n_i" TNM_NET = adc_dco_n_i;
+#TIMESPEC TS_adc_dco_n_i = PERIOD "adc_dco_n_i" 2.5 ns HIGH 50%;
+
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[3].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<12>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[3].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<13>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[3].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<14>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[3].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<15>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[3].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<16>" S;
+
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[2].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<12>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[2].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<13>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[2].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<14>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[2].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<15>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[2].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<16>" S;
+
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[1].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<12>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[1].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<13>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[1].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<14>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[1].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<15>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[1].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<16>" S;
+
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[0].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<12>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[0].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<13>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[0].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<14>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[0].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<15>" S;
+#NET "cmp_fmc_adc_100Ms_core/l_offset_gain_calibr[0].cmp_offset_gain_calibr/data_i[15]_offset_i[15]_add_0_OUT<16>" S;
+
+
+#NET "ext_trigger_n_i" LOC = J21; # LA17_N
+#NET "ext_trigger_n_i" IOSTANDARD = "LVDS_25";
+#NET "ext_trigger_p_i" LOC = K21; # LA17_P
+#NET "ext_trigger_p_i" IOSTANDARD = "LVDS_25";
+
+# dco_p and dco_n are swapped compared to the FMC ADC schematics
+# this is to be coherent in the hdl design
+NET "adc_dco_n_i" LOC = C18; # LA00_N
+NET "adc_dco_n_i" IOSTANDARD = "LVDS_25";
+NET "adc_dco_n_i" DIFF_TERM = "TRUE";
+NET "adc_dco_p_i" LOC = D18; # LA00_P
+NET "adc_dco_p_i" IOSTANDARD = "LVDS_25";
+NET "adc_dco_p_i" DIFF_TERM = "TRUE";
+
+# fr_p and fr_n are swapped compared to the FMC ADC schematics
+# this is to be coherent in the hdl design
+NET "adc_fr_n_i" LOC = E18; # LA01_N
+NET "adc_fr_n_i" IOSTANDARD = "LVDS_25";
+NET "adc_fr_p_i" LOC = E17; # LA01_P
+NET "adc_fr_p_i" IOSTANDARD = "LVDS_25";
+
+#NET "CLK0_M2C_P" LOC = D19;
+#NET "CLK0_M2C_P" IOSTANDARD = "LVDS_25";
+#NET "CLK0_M2C_N" LOC = C19;
+#NET "CLK0_M2C_N" IOSTANDARD = "LVDS_25";
+
+NET "adc_outa_n_i[0]" LOC = B21; # LA14_N
+NET "adc_outa_n_i[0]" IOSTANDARD = "LVDS_25";
+NET "adc_outa_p_i[0]" LOC = C21; # LA14_P
+NET "adc_outa_p_i[0]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_n_i[0]" LOC = A22; # LA15_N
+NET "adc_outb_n_i[0]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_p_i[0]" LOC = B22; # LA15_P
+NET "adc_outb_p_i[0]" IOSTANDARD = "LVDS_25";
+NET "adc_outa_n_i[1]" LOC = D21; # LA16_N
+NET "adc_outa_n_i[1]" IOSTANDARD = "LVDS_25";
+NET "adc_outa_p_i[1]" LOC = E21; # LA16_P
+NET "adc_outa_p_i[1]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_n_i[1]" LOC = A20; # LA13_N
+NET "adc_outb_n_i[1]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_p_i[1]" LOC = B20; # LA13_P
+NET "adc_outb_p_i[1]" IOSTANDARD = "LVDS_25";
+NET "adc_outa_n_i[2]" LOC = A18; # LA10_N
+NET "adc_outa_n_i[2]" IOSTANDARD = "LVDS_25";
+NET "adc_outa_p_i[2]" LOC = A17; # LA10_P
+NET "adc_outa_p_i[2]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_n_i[2]" LOC = D16; # LA09_N
+NET "adc_outb_n_i[2]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_p_i[2]" LOC = E16; # LA09_P
+NET "adc_outb_p_i[2]" IOSTANDARD = "LVDS_25";
+NET "adc_outa_n_i[3]" LOC = G16; # LA07_N
+NET "adc_outa_n_i[3]" IOSTANDARD = "LVDS_25";
+NET "adc_outa_p_i[3]" LOC = H16; # LA07_P
+NET "adc_outa_p_i[3]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_n_i[3]" LOC = F15; # LA05_N
+NET "adc_outb_n_i[3]" IOSTANDARD = "LVDS_25";
+NET "adc_outb_p_i[3]" LOC = G15; # LA05_P
+NET "adc_outb_p_i[3]" IOSTANDARD = "LVDS_25";
+
+
+NET "adc_gpio_ssr_ch1_o[0]" LOC = J24; # LA26_P
+NET "adc_gpio_ssr_ch1_o[0]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch1_o[1]" LOC = H24; # LA26_N
+NET "adc_gpio_ssr_ch1_o[1]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch1_o[2]" LOC = E23; # LA27_N
+NET "adc_gpio_ssr_ch1_o[2]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch1_o[3]" LOC = F22; # LA25_N
+NET "adc_gpio_ssr_ch1_o[3]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch1_o[4]" LOC = J18; # LA24_P
+NET "adc_gpio_ssr_ch1_o[4]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch1_o[5]" LOC = H18; # LA24_N
+NET "adc_gpio_ssr_ch1_o[5]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch1_o[6]" LOC = G24; # LA29_P
+NET "adc_gpio_ssr_ch1_o[6]" IOSTANDARD = "LVCMOS25";
+
+NET "adc_gpio_ssr_ch2_o[0]" LOC = M16; # LA20_P
+NET "adc_gpio_ssr_ch2_o[0]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch2_o[1]" LOC = L14; # LA19_N
+NET "adc_gpio_ssr_ch2_o[1]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch2_o[2]" LOC = L17; # LA22_P
+NET "adc_gpio_ssr_ch2_o[2]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch2_o[3]" LOC = L18; # LA22_N
+NET "adc_gpio_ssr_ch2_o[3]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch2_o[4]" LOC = J19; # LA21_P
+NET "adc_gpio_ssr_ch2_o[4]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch2_o[5]" LOC = F23; # LA27_P
+NET "adc_gpio_ssr_ch2_o[5]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch2_o[6]" LOC = H19; # LA21_N
+NET "adc_gpio_ssr_ch2_o[6]" IOSTANDARD = "LVCMOS25";
+
+NET "adc_gpio_ssr_ch3_o[0]" LOC = C17; # LA08_P
+NET "adc_gpio_ssr_ch3_o[0]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch3_o[1]" LOC = B17; # LA08_N
+NET "adc_gpio_ssr_ch3_o[1]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch3_o[2]" LOC = E20; # LA12_P
+NET "adc_gpio_ssr_ch3_o[2]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch3_o[3]" LOC = D20; # LA12_N
+NET "adc_gpio_ssr_ch3_o[3]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch3_o[4]" LOC = B19; # LA11_P
+NET "adc_gpio_ssr_ch3_o[4]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch3_o[5]" LOC = A19; # LA11_N
+NET "adc_gpio_ssr_ch3_o[5]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch3_o[6]" LOC = M17; # LA20_N
+NET "adc_gpio_ssr_ch3_o[6]" IOSTANDARD = "LVCMOS25";
+
+NET "adc_gpio_ssr_ch4_o[0]" LOC = H14; # LA02_P
+NET "adc_gpio_ssr_ch4_o[0]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch4_o[1]" LOC = H15; # LA02_N
+NET "adc_gpio_ssr_ch4_o[1]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch4_o[2]" LOC = G17; # LA03_P
+NET "adc_gpio_ssr_ch4_o[2]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch4_o[3]" LOC = F17; # LA03_N
+NET "adc_gpio_ssr_ch4_o[3]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch4_o[4]" LOC = F18; # LA04_P
+NET "adc_gpio_ssr_ch4_o[4]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch4_o[5]" LOC = G19; # LA06_P
+NET "adc_gpio_ssr_ch4_o[5]" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_ssr_ch4_o[6]" LOC = F19; # LA04_N
+NET "adc_gpio_ssr_ch4_o[6]" IOSTANDARD = "LVCMOS25";
+
+NET "user_sma_gpio_p" LOC = T8; # USER_SMA_GPIO_P
+NET "user_sma_gpio_p" IOSTANDARD = "LVCMOS25";
+NET "user_sma_gpio_n" LOC = T7; # USER_SMA_GPIO_N
+NET "user_sma_gpio_n" IOSTANDARD = "LVCMOS25";
+
+## Не занаю пока
+NET "adc_spi_din_i" LOC = G22; # LA25_P
+NET "adc_spi_din_i" IOSTANDARD = "LVCMOS25";
+NET "adc_spi_dout_o" LOC = D26; # LA31_N
+NET "adc_spi_dout_o" IOSTANDARD = "LVCMOS25";
+NET "adc_spi_sck_o" LOC = E26; # LA31_P
+NET "adc_spi_sck_o" IOSTANDARD = "LVCMOS25";
+NET "adc_spi_cs_adc_n_o" LOC = E25; # LA30_P
+NET "adc_spi_cs_adc_n_o" IOSTANDARD = "LVCMOS25";
+NET "adc_spi_cs_dac1_n_o" LOC = H26; # LA32_P
+NET "adc_spi_cs_dac1_n_o" IOSTANDARD = "LVCMOS25";
+NET "adc_spi_cs_dac2_n_o" LOC = G26; # LA32_N
+NET "adc_spi_cs_dac2_n_o" IOSTANDARD = "LVCMOS25";
+NET "adc_spi_cs_dac3_n_o" LOC = G25; # LA33_P
+NET "adc_spi_cs_dac3_n_o" IOSTANDARD = "LVCMOS25";
+NET "adc_spi_cs_dac4_n_o" LOC = F25; # LA33_N
+NET "adc_spi_cs_dac4_n_o" IOSTANDARD = "LVCMOS25";
+
+NET "adc_gpio_dac_clr_n_o" LOC = D25; # LA30_N
+NET "adc_gpio_dac_clr_n_o" IOSTANDARD = "LVCMOS25";
+
+NET "adc_gpio_led_acq_o" LOC = K23; # LA28_N
+NET "adc_gpio_led_acq_o" IOSTANDARD = "LVCMOS25";
+NET "adc_gpio_led_trig_o" LOC = K22; # LA28_P
+NET "adc_gpio_led_trig_o" IOSTANDARD = "LVCMOS25";
+
+NET "adc_gpio_si570_oe_o" LOC = AB5; # LA06_N
+NET "adc_gpio_si570_oe_o" IOSTANDARD = "LVCMOS25";
+
+NET "adc_si570_scl_b[0]" LOC = G21; # LA18_N
+NET "adc_si570_scl_b[0]" IOSTANDARD = "LVCMOS25";
+NET "adc_si570_sda_b[0]" LOC = G20; # LA18_P
+NET "adc_si570_sda_b[0]" IOSTANDARD = "LVCMOS25";
+
+NET "adc_one_wire_b" LOC = F24; # LA29_N
+NET "adc_one_wire_b" IOSTANDARD = "LVCMOS25";
+
+NET "fmc_prsnt_m2c_n_i" LOC = N16; # PRSNT_M2C_L
+NET "fmc_prsnt_m2c_n_i" IOSTANDARD = "LVCMOS33";
+
+NET "fmc_sys_scl_b[0]" LOC = N18; # SCL
+NET "fmc_sys_scl_b[0]" IOSTANDARD = "LVCMOS33";
+NET "fmc_sys_sda_b[0]" LOC = K25; # SDA
+NET "fmc_sys_sda_b[0]" IOSTANDARD = "LVCMOS33";
+
+#NET "adc_clk_in_p" LOC = D19;
+#NET "adc_clk_in_p" IOSTANDARD = LVDS_25;
+#NET "adc_clk_in_p" DIFF_TERM = "TRUE";
+#NET "adc_clk_in_n" LOC = C19;
+#NET "adc_clk_in_n" IOSTANDARD = LVDS_25;
+#NET "adc_clk_in_n" DIFF_TERM = "TRUE";
+#NET "adc_data_or_p" LOC = C17;
+#NET "adc_data_or_p" IOSTANDARD = LVDS_25;
+#NET "adc_data_or_p" DIFF_TERM = "TRUE";
+#NET "adc_data_or_n" LOC = B17;
+#NET "adc_data_or_n" IOSTANDARD = LVDS_25;
+#NET "adc_data_or_n" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[0]" LOC = D18;
+#NET "adc_data_in_p[0]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[0]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[0]" LOC = C18;
+#NET "adc_data_in_n[0]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[0]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[1]" LOC = E17;
+#NET "adc_data_in_p[1]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[1]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[1]" LOC = E18;
+#NET "adc_data_in_n[1]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[1]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[2]" LOC = H14;
+#NET "adc_data_in_p[2]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[2]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[2]" LOC = H15;
+#NET "adc_data_in_n[2]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[2]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[3]" LOC = G17;
+#NET "adc_data_in_p[3]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[3]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[3]" LOC = F17;
+#NET "adc_data_in_n[3]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[3]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[4]" LOC = F18;
+#NET "adc_data_in_p[4]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[4]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[4]" LOC = F19;
+#NET "adc_data_in_n[4]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[4]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[5]" LOC = G15;
+#NET "adc_data_in_p[5]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[5]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[5]" LOC = F15;
+#NET "adc_data_in_n[5]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[5]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[6]" LOC = G19;
+#NET "adc_data_in_p[6]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[6]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[6]" LOC = F20;
+#NET "adc_data_in_n[6]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[6]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_p[7]" LOC = H16;
+#NET "adc_data_in_p[7]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_p[7]" DIFF_TERM = "TRUE";
+#NET "adc_data_in_n[7]" LOC = G16;
+#NET "adc_data_in_n[7]" IOSTANDARD = LVDS_25;
+#NET "adc_data_in_n[7]" DIFF_TERM = "TRUE";
+
+
+#NET real_strobe_signal LOC = "V34" | IOSTANDARD = "LVCMOS25";   
+#NET real_soa_signal LOC = "W34" | IOSTANDARD = "LVCMOS25";  
+
+#NET "adc_clk_in_p" TNM_NET = "adc_clk_in_p";
+#TIMESPEC TS_adc_clk_in_p = PERIOD "adc_clk_in_p" 100 MHz HIGH 50 %;
+#NET "adc_clk_in_n" TNM_NET = "adc_clk_in_n";
+#TIMESPEC TS_adc_clk_in_n = PERIOD "adc_clk_in_n" 100 MHz HIGH 50 %;
+
+
+#NET "adc_dco_p_i" TNM_NET = "adc_dco_p_i";
+#TIMESPEC TS_adc_dco_p_i = PERIOD "adc_dco_p_i" 400 MHz HIGH 50 %;
+#NET "adc_dco_n_i" TNM_NET = "adc_dco_n_i";
+#TIMESPEC TS_adc_dco_n_i = PERIOD "adc_dco_n_i" 400 MHz HIGH 50 %;
+
+
