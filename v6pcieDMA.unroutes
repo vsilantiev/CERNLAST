@@ -1,46 +1,20 @@
-Release 14.7 - par P.20131013 (lin64)
+Release 14.7 - par P.20131013 (nt64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Thu Dec 11 09:24:13 2014
+Sun Dec 14 22:33:29 2014
 
 All signals are completely routed.
 
-WARNING:ParHelpers:362 - There are 27 sourceless signals in this design. This design will not pass the DRC check run by
+WARNING:ParHelpers:362 - There are 3 sourceless signals in this design. This design will not pass the DRC check run by
    Bitgen.
 
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<12>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<13>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<14>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<15>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<28>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<29>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<30>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<31>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<44>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<45>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<46>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<47>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<60>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<61>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<62>
-   LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<63>
    adc_gpio_dac_clr_n_o_OBUF
    adc_gpio_led_acq_o_OBUF
    adc_gpio_led_trig_o_OBUF
-   adc_gpio_si570_oe_o_OBUF
-   adc_spi_cs_adc_n_o_OBUF
-   adc_spi_cs_dac1_n_o_OBUF
-   adc_spi_cs_dac2_n_o_OBUF
-   adc_spi_cs_dac3_n_o_OBUF
-   adc_spi_cs_dac4_n_o_OBUF
-   adc_spi_dout_o_OBUF
-   adc_spi_sck_o_OBUF
-WARNING:ParHelpers:361 - There are 69 loadless signals in this design. This design will cause Bitgen to issue DRC
+WARNING:ParHelpers:361 - There are 67 loadless signals in this design. This design will cause Bitgen to issue DRC
    warnings.
 
    adc_one_wire_b_IBUF
-   adc_si570_scl_b<0>_IBUF
-   adc_si570_sda_b<0>_IBUF
    adc_spi_din_i_IBUF
    clk_200MHz
    fmc_prsnt_m2c_n_i_IBUF

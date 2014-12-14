@@ -91,7 +91,7 @@ entity v6pcieDMA is
 			 adc_gpio_ssr_ch3_o   : inout std_logic_vector(6 downto 0);  -- Channel 3 solid state relays control
 			 adc_gpio_ssr_ch4_o   : inout std_logic_vector(6 downto 0);  -- Channel 4 solid state relays control
 			 
-			 adc_gpio_si570_oe_o  : out std_logic;                     -- Si570 (programmable oscillator) output enable
+			 adc_gpio_si570_oe_o  : out std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
 			 
 			 adc_spi_din_i       : in  std_logic;  -- SPI data from FMC
 			 adc_spi_dout_o      : out std_logic;  -- SPI data to FMC
@@ -102,8 +102,8 @@ entity v6pcieDMA is
 			 adc_spi_cs_dac3_n_o : out std_logic;  -- SPI channel 3 offset DAC chip select (active low)
 			 adc_spi_cs_dac4_n_o : out std_logic;  -- SPI channel 4 offset DAC chip select (active low)
 			 
-			 adc_si570_scl_b : inout std_logic_vector(0 downto 0);  -- I2C bus clock (Si570)
-			 adc_si570_sda_b : inout std_logic_vector(0 downto 0);  -- I2C bus data (Si570)
+			 adc_si570_scl_b : inout std_logic;  -- I2C bus clock (Si570)
+			 adc_si570_sda_b : inout std_logic;  -- I2C bus data (Si570)
 
 			 adc_one_wire_b : inout std_logic;  -- Mezzanine 1-wire interface (DS18B20 thermometer + unique ID)
 
@@ -336,6 +336,20 @@ architecture Behavioral of v6pcieDMA is
 		adc_gpio_ssr_ch2_o   : inout std_logic_vector(6 downto 0);  -- Channel 2 solid state relays control
 		adc_gpio_ssr_ch3_o   : inout std_logic_vector(6 downto 0);  -- Channel 3 solid state relays control
 		adc_gpio_ssr_ch4_o   : inout std_logic_vector(6 downto 0);  -- Channel 4 solid state relays control
+		
+		adc_gpio_si570_oe_o  : out std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
+			 
+			 adc_spi_din_i       : in  std_logic;  -- SPI data from FMC
+			 adc_spi_dout_o      : out std_logic;  -- SPI data to FMC
+			 adc_spi_sck_o       : out std_logic;  -- SPI clock
+			 adc_spi_cs_adc_n_o  : out std_logic;  -- SPI ADC chip select (active low)
+			 adc_spi_cs_dac1_n_o : out std_logic;  -- SPI channel 1 offset DAC chip select (active low)
+			 adc_spi_cs_dac2_n_o : out std_logic;  -- SPI channel 2 offset DAC chip select (active low)
+			 adc_spi_cs_dac3_n_o : out std_logic;  -- SPI channel 3 offset DAC chip select (active low)
+			 adc_spi_cs_dac4_n_o : out std_logic;  -- SPI channel 4 offset DAC chip select (active low)
+			 
+			 adc_si570_scl_b : inout std_logic;  -- I2C bus clock (Si570)
+			 adc_si570_sda_b : inout std_logic;  -- I2C bus data (Si570)
 		
 		user_sma_gpio_p		: out std_logic;
 		user_sma_gpio_n		: out std_logic
@@ -1302,6 +1316,21 @@ cmp_fmc_adc_100Ms_core : fmc_adc_100Ms_core
 		adc_gpio_ssr_ch2_o => adc_gpio_ssr_ch2_o,
 		adc_gpio_ssr_ch3_o => adc_gpio_ssr_ch3_o,
 		adc_gpio_ssr_ch4_o => adc_gpio_ssr_ch4_o,
+		
+		
+		adc_gpio_si570_oe_o => adc_gpio_si570_oe_o, -- : out std_logic;                     -- Si570 (programmable oscillator) output enable
+			 
+			 adc_spi_din_i => adc_spi_din_i,     -- : in  std_logic;  -- SPI data from FMC
+			 adc_spi_dout_o => adc_spi_dout_o,    -- : out std_logic;  -- SPI data to FMC
+			 adc_spi_sck_o => adc_spi_sck_o,    -- : out std_logic;  -- SPI clock
+			 adc_spi_cs_adc_n_o => adc_spi_cs_adc_n_o,-- : out std_logic;  -- SPI ADC chip select (active low)
+			 adc_spi_cs_dac1_n_o => adc_spi_cs_dac1_n_o,-- : out std_logic;  -- SPI channel 1 offset DAC chip select (active low)
+			 adc_spi_cs_dac2_n_o => adc_spi_cs_dac2_n_o,-- : out std_logic;  -- SPI channel 2 offset DAC chip select (active low)
+			 adc_spi_cs_dac3_n_o => adc_spi_cs_dac3_n_o,-- : out std_logic;  -- SPI channel 3 offset DAC chip select (active low)
+			 adc_spi_cs_dac4_n_o => adc_spi_cs_dac4_n_o,-- : out std_logic;  -- SPI channel 4 offset DAC chip select (active low)
+		
+		adc_si570_scl_b => adc_si570_scl_b,
+		adc_si570_sda_b => adc_si570_sda_b,
 		
 		user_sma_gpio_p	=>	user_sma_gpio_p,
 			 user_sma_gpio_n	=>	user_sma_gpio_n

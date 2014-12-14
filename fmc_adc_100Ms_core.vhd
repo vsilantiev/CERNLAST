@@ -125,6 +125,20 @@ entity fmc_adc_100Ms_core is
 	   adc_gpio_ssr_ch3_o   : inout std_logic_vector(6 downto 0);  -- Channel 3 solid state relays control
 	   adc_gpio_ssr_ch4_o   : inout std_logic_vector(6 downto 0);  -- Channel 4 solid state relays control
 		
+				adc_gpio_si570_oe_o  : out std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
+			 
+			 adc_spi_din_i       : in  std_logic;  -- SPI data from FMC
+			 adc_spi_dout_o      : out std_logic;  -- SPI data to FMC
+			 adc_spi_sck_o       : out std_logic;  -- SPI clock
+			 adc_spi_cs_adc_n_o  : out std_logic;  -- SPI ADC chip select (active low)
+			 adc_spi_cs_dac1_n_o : out std_logic;  -- SPI channel 1 offset DAC chip select (active low)
+			 adc_spi_cs_dac2_n_o : out std_logic;  -- SPI channel 2 offset DAC chip select (active low)
+			 adc_spi_cs_dac3_n_o : out std_logic;  -- SPI channel 3 offset DAC chip select (active low)
+			 adc_spi_cs_dac4_n_o : out std_logic;  -- SPI channel 4 offset DAC chip select (active low)
+			 
+			 adc_si570_scl_b : inout std_logic;  -- I2C bus clock (Si570)
+			 adc_si570_sda_b : inout std_logic;  -- I2C bus data (Si570)
+		
 		user_sma_gpio_p		: out std_logic;
 		user_sma_gpio_n		: out std_logic
 		
@@ -133,6 +147,31 @@ end fmc_adc_100Ms_core;
 
 architecture Behavioral of fmc_adc_100Ms_core is
 
+   component i2c_master_v01
+   generic( 
+      CLK_FREQ : natural := 25000000;
+      BAUD     : natural := 100000
+   );
+   port( 
+      --INPUTS
+      sys_clk    : IN     std_logic;
+      sys_rst    : IN     std_logic;
+		start      : IN     std_logic;
+      stop       : IN     std_logic;
+      read       : IN     std_logic;
+      write      : IN     std_logic;
+      send_ack   : IN     std_logic;
+      mstr_din   : IN     std_logic_vector (7 DOWNTO 0); -- address and data
+      --OUTPUTS
+      sda        : INOUT  std_logic;
+      scl        : INOUT  std_logic;
+      free       : OUT    std_logic;
+      rec_ack    : OUT    std_logic;
+      ready      : OUT    std_logic;
+      core_state : OUT    std_logic_vector (5 DOWNTO 0);  --for debug purpose
+      mstr_dout  : OUT    std_logic_vector (7 DOWNTO 0)
+   );
+end component i2c_master_v01;
   
   component serdes
     generic
@@ -247,6 +286,18 @@ architecture Behavioral of fmc_adc_100Ms_core is
   signal clkfbstopped_unused : std_logic;
   signal clkinstopped_unused : std_logic;
   
+  
+  signal control_iic : std_logic_vector(31 downto 0);
+  signal status_iic : std_logic_vector(31 downto 0);
+
+   signal   free       : std_logic;
+   signal   rec_ack    : std_logic;
+   signal   ready      : std_logic;
+  	signal	start      : std_logic;
+   signal   stop       : std_logic;
+   signal   read       : std_logic;
+   signal   write      : std_logic;
+   signal   send_ack   : std_logic;
 begin
 
 
@@ -260,6 +311,8 @@ begin
   ------------------------------------------------------------------------------
   -- ADC data clock buffer
   ------------------------------------------------------------------------------
+
+  
   
  cmp_dco_buf : IBUFGDS
    generic map (
@@ -270,6 +323,7 @@ begin
      IB => adc_dco_n_i,
      O  => dco_clk
      );
+  
   
 
   ------------------------------------------------------------------------------
@@ -441,6 +495,28 @@ begin
 fifowr_clk <= fs_clk;
 
 
+  
+i2c_master_si570 : i2c_master_v01
+   port map( 
+      --INPUTS
+      sys_clk    => sys_clk_i,
+      sys_rst    => sys_rst_n_i,
+		start      => start,--'1',--: IN     std_logic;
+      stop       => stop,--'1',--: IN     std_logic;
+      read       => read,--'0',--: IN     std_logic;
+      write      => write,--'1',--: IN     std_logic;
+      send_ack   => send_ack,--'1',--: IN     std_logic;
+      mstr_din   => control_iic(7 downto 0),--X"55",--: IN     std_logic_vector (7 DOWNTO 0); -- address and data 
+      --OUTPUTS
+      sda        => adc_si570_sda_b,-- : INOUT  std_logic;
+      scl        => adc_si570_scl_b,--: INOUT  std_logic;
+      free       => free,---: OUT    std_logic;
+      rec_ack    => rec_ack,--: OUT    std_logic;
+      ready      => ready,--: OUT    std_logic;
+      core_state => status_iic(13 downto 8),--: OUT    std_logic_vector (5 DOWNTO 0);  --for debug purpose
+      mstr_dout  => status_iic(7 downto 0)--: OUT    std_logic_vector (7 DOWNTO 0)
+   );
+
   ------------------------------------------------------------------------------
   -- ADC data and frame SerDes
   ------------------------------------------------------------------------------
@@ -511,7 +587,7 @@ fifowr_clk <= fs_clk;
 		  reg03_strobe_length_cur <= X"00000276";	-- 7500 ns
 		  reg04_soa_length_cur <= X"00000008";	-- 80 ns
 		  reg06_rd_testbandwith_speed<= X"00000000";
-      else 
+      elsif (trn_clk'event and trn_clk='1') then 
 	   if reg01_tv = '1' then
 		  reg01_rd_current_reflength <= reg01_td;
 	   end if;
@@ -578,21 +654,47 @@ fifowr_clk <= fs_clk;
 		  adc_gpio_ssr_ch2_o <= reg07_td(6 downto 0);
 		  adc_gpio_ssr_ch3_o <= reg07_td(6 downto 0);
 		  adc_gpio_ssr_ch4_o <= reg07_td(6 downto 0);
+		  adc_gpio_si570_oe_o <= reg07_td(7 downto 7);
 	   end if;
 
-		--reg08_rd(6 downto 0)  <= adc_gpio_ssr_ch2_o; --// state IRQ to reg 
-	   --reg08_rv <= '1'; --//51
+		reg08_rd(12 downto 0)  <= control_iic(12 downto 0); --// iic control 51	
+		reg08_rv <= '1'; --//51
 	
-	   --if reg08_tv = '1' then
-		--  adc_gpio_ssr_ch2_o <= reg08_td(6 downto 0);
-	   --end if;
+	   if reg08_tv = '1' then
+		  control_iic(7 downto 0) <= reg08_td(7 downto 0);
+		     if reg08_td(8) = '1' then
+			  send_ack <= '1';
+			  else
+			  send_ack <= '0';
+			  end if;
+			  if reg08_td(9) = '1' then
+			  write <= '1';
+			  else
+			  write <= '0';
+			  end if;
+			  if reg08_td(10) = '1' then
+			  read <= '1';
+			  else
+			  read <= '0';
+			  end if;
+			  if reg08_td(11) = '1' then
+			  stop <= '1';
+			  else
+			  stop <= '0';
+			  end if;
+			  if reg08_td(12) = '1' then
+			  start <= '1';
+			  else
+			  start <= '0';
+			  end if;			  
+	   end if;
 		
-		--reg09_rd(6 downto 0)  <= adc_gpio_ssr_ch3_o; --// state IRQ to reg 
-	   --reg09_rv <= '1'; --//52
+		reg09_rd(16 downto 0)  <= status_iic(13 downto 0) & ready & rec_ack & free; --// iic status 52
+	     reg09_rv <= '1'; --//52
 	
 	   --if reg09_tv = '1' then
 		--  adc_gpio_ssr_ch3_o <= reg09_td(6 downto 0);
-	   --end if;
+	  -- end if;
 		
 		--reg10_rd(6 downto 0)  <= adc_gpio_ssr_ch4_o; --// state IRQ to reg 
 	   --reg10_rv <= '1'; --//53
@@ -621,7 +723,7 @@ fifowr_clk <= fs_clk;
 		  wasfifoerror <= X"00000000";
 		  fifowasoverflowonvalue <= X"00000000";
 		  fifowasoverflow <= '0';
-      else 
+      elsif (fs_clk'event and fs_clk='1') then
 		if reg02_rd_work_status = X"00000000" then
 		  strobe_counter <= X"00000000";
 		  soa_counter <= X"00000000";

@@ -82,9 +82,9 @@ port
   IO_RESET                : in    std_logic);                   -- Reset signal for IO circuit
 end serdes;
 
-architecture xilinx of serdes is
+architecture Behavioral of serdes is
   attribute CORE_GENERATION_INFO            : string;
-  attribute CORE_GENERATION_INFO of xilinx  : architecture is "serdes,selectio_wiz_v4_1,{component_name=serdes,bus_dir=INPUTS,bus_sig_type=DIFF,bus_io_std=LVDS_25,use_serialization=true,use_phase_detector=false,serialization_factor=8,enable_bitslip=false,enable_train=false,system_data_width=9,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS25,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,v6_bus_in_delay=NONE,v6_bus_out_delay=NONE,v6_clk_buf=MMCM,v6_active_edge=SDR,v6_ddr_alignment=SAME_EDGE_PIPELINED,v6_oddr_alignment=SAME_EDGE,ddr_alignment=C0,v6_interface_type=NETWORKING,interface_type=NETWORKING,v6_bus_in_tap=0,v6_bus_out_tap=0,v6_clk_io_std=LVCMOS25,v6_clk_sig_type=SINGLE}";
+  attribute CORE_GENERATION_INFO of Behavioral  : architecture is "serdes,selectio_wiz_v4_1,{component_name=serdes,bus_dir=INPUTS,bus_sig_type=DIFF,bus_io_std=LVDS_25,use_serialization=true,use_phase_detector=false,serialization_factor=8,enable_bitslip=false,enable_train=false,system_data_width=9,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS25,clk_buf=BUFIO2,active_edge=RISING,clk_delay=NONE,v6_bus_in_delay=NONE,v6_bus_out_delay=NONE,v6_clk_buf=MMCM,v6_active_edge=SDR,v6_ddr_alignment=SAME_EDGE_PIPELINED,v6_oddr_alignment=SAME_EDGE,ddr_alignment=C0,v6_interface_type=NETWORKING,interface_type=NETWORKING,v6_bus_in_tap=0,v6_bus_out_tap=0,v6_clk_io_std=LVCMOS25,v6_clk_sig_type=SINGLE}";
   constant clock_enable            : std_logic := '1';
   signal unused : std_logic;
   signal clk_in_int_buf            : std_logic;
@@ -139,7 +139,7 @@ begin
     -- Instantiate the buffers
     ----------------------------------
     -- Instantiate a buffer for every bit of the data bus
-     ibufds_inst : IBUFGDS
+     ibufds_inst : IBUFDS
        generic map (
          DIFF_TERM  => TRUE,             -- Differential termination
          IOSTANDARD => "LVDS_25")
@@ -258,13 +258,23 @@ begin
            iserdes_q(slice_count);
      end generate in_slices;
 
+
+--DATA_IN_TO_DEVICE(8 downto 0) <= iserdes_q(0) --(8 downto 0)
+--DATA_IN_TO_DEVICE(17 downto 9) <= iserdes_q(1) --(8 downto 0)
+--DATA_IN_TO_DEVICE(26 downto 18) <= iserdes_q(2) --(8 downto 0)
+--DATA_IN_TO_DEVICE(35 downto 27) <= iserdes_q(3) --(8 downto 0)
+--DATA_IN_TO_DEVICE(44 downto 36) <= iserdes_q(4) --(8 downto 0)
+--DATA_IN_TO_DEVICE(53 downto 45) <= iserdes_q(5) --(8 downto 0)
+--DATA_IN_TO_DEVICE(62 downto 54) <= iserdes_q(6) --(8 downto 0)
+--DATA_IN_TO_DEVICE(71 downto 63) <= iserdes_q(7) --(8 downto 0)
+
   end generate pins;
 
 
 
 
 
-end xilinx;
+end Behavioral;
 
 
 
