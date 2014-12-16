@@ -14,7 +14,7 @@
 <msg type="info" file="LIT" num="243" delta="old" >Logical network <arg fmt="%s" index="1">cfg_interrupt_do&lt;7&gt;</arg> has no load.
 </msg>
 
-<msg type="info" file="LIT" num="395" delta="old" >The above <arg fmt="%s" index="1">info</arg> message is repeated <arg fmt="%d" index="2">2791</arg> more times for the following (max. 5 shown):
+<msg type="info" file="LIT" num="395" delta="old" >The above <arg fmt="%s" index="1">info</arg> message is repeated <arg fmt="%d" index="2">2655</arg> more times for the following (max. 5 shown):
 <arg fmt="%s" index="3">cfg_interrupt_do&lt;6&gt;,
 cfg_interrupt_do&lt;5&gt;,
 cfg_interrupt_do&lt;4&gt;,
@@ -122,43 +122,37 @@ of frag <arg fmt="%s" index="2">RST</arg> connected to power/ground net <arg fmt
 <msg type="info" file="Map" num="215" delta="old" >The Interim Design Summary has been generated in the MAP Report (.mrp).
 </msg>
 
-<msg type="info" file="Pack" num="1650" delta="old" >Map created a placed design.
+<msg type="info" file="Pack" num="1650" delta="new" >Map created a placed design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="368" delta="old" >The signal &lt;<arg fmt="%s" index="1">adc_gpio_dac_clr_n_o_OBUF</arg>&gt; is incomplete. The signal is not driven by any source pin in the design.
+<msg type="warning" file="PhysDesignRules" num="372" delta="new" >Gated clock. Clock net <arg fmt="%s" index="1">icon_control0&lt;13&gt;</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="368" delta="old" >The signal &lt;<arg fmt="%s" index="1">adc_gpio_led_acq_o_OBUF</arg>&gt; is incomplete. The signal is not driven by any source pin in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">adc_spi_din_i_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">adc_spi_din_i_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">clk_200MHz</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">clk_200MHz</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">fmc_sys_sda_b&lt;0&gt;_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="368" delta="old" >The signal &lt;<arg fmt="%s" index="1">adc_gpio_led_trig_o_OBUF</arg>&gt; is incomplete. The signal is not driven by any source pin in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">fmc_prsnt_m2c_n_i_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">fmc_sys_sda_b&lt;0&gt;_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">fmc_sys_scl_b&lt;0&gt;_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">fmc_prsnt_m2c_n_i_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">adc_one_wire_b_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">fmc_sys_scl_b&lt;0&gt;_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">trn_reset_n</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">adc_one_wire_b_IBUF</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/gtp_pipe_reset.gtp_pipe_reset_i/RST_RXUSRCLK</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">trn_reset_n</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[1].pipe_user_i/USER_OOBCLK_IN</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline_inst/NULL_RX_tkeep&lt;5&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline_inst/NULL_RX_tkeep&lt;5&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
 <msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline_inst/NULL_RX_tkeep&lt;4&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
@@ -167,85 +161,61 @@ of frag <arg fmt="%s" index="2">RST</arg> connected to power/ground net <arg fmt
 <msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline_inst/NULL_RDST_RDY</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_raddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_raddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_raddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_raddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_waddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_waddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_waddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_waddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_raddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_raddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_raddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_raddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_waddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_waddr&lt;12&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_waddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_waddr&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[3].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[3].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[5].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[5].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[7].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[7].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[0].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[0].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[2].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[2].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[4].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[4].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[6].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[6].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2165" delta="old" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[1].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
+<msg type="warning" file="PhysDesignRules" num="2165" delta="new" >Issue with pin connections and/or configuration on block:&lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[1].iserdese2_master</arg>&gt;:&lt;<arg fmt="%s" index="2">ISERDESE2_ISERDESE2</arg>&gt;.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin is being ignored.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="367" delta="old" >The signal &lt;<arg fmt="%s" index="1">theTlpControl/rx_Itf/Rx_Input_Delays/trn_rrem_n&lt;0&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">theTlpControl/Memory_Space/eb_FIFO_Status&lt;11&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[3].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">theTlpControl/Memory_Space/eb_FIFO_Status&lt;10&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[5].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[7].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[0].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[2].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[4].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[6].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2455" delta="old" >Unsupported clocking topology used for <arg fmt="%s" index="1">ISERDESE2</arg> &lt;<arg fmt="%s" index="2">cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[1].iserdese2_master</arg>&gt;. This can result in corrupted data. The <arg fmt="%s" index="3">CLK</arg> / <arg fmt="%s" index="4">CLKDIV</arg> pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2240" delta="old" >The MMCME2_ADV block &lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/mmcm_adv_inst</arg>&gt; has CLKOUT pins that do not drive the same kind of BUFFER load. Routing from the different buffer types will not be phase aligned. 
-</msg>
-
-<msg type="warning" file="PhysDesignRules" num="2400" delta="old" >The MMCME2_ADV block &lt;<arg fmt="%s" index="1">cmp_fmc_adc_100Ms_core/mmcm_adv_inst</arg>&gt; &lt;<arg fmt="%s" index="2">CLKFBOUT</arg>&gt; pin does not drive the same kind of BUFFER load as the other CLKOUT pins. Routing from the different buffer types will not be phase aligned and therefore zero hold time at the IO flip-flop(s) may not be met. 
+<msg type="warning" file="PhysDesignRules" num="367" delta="new" >The signal &lt;<arg fmt="%s" index="1">theTlpControl/rx_Itf/Rx_Input_Delays/trn_rrem_n&lt;0&gt;</arg>&gt; is incomplete. The signal does not drive any load pins in the design.
 </msg>
 
 </messages>

@@ -1,5 +1,5 @@
 The following files were generated for 'icon_pro' in directory
-/home/vladimir/CERN/WRAPPERLASTAC701/_ngo/cs_icon_pro/
+/home/vladimir/CERN/CERNLAST/_ngo/cs_icon_pro/
 
 XCO file generator:
    Generate an XCO file for compatibility with legacy flows.

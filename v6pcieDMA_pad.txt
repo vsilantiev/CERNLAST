@@ -1,7 +1,7 @@
-Release 14.7 - par P.20131013 (nt64)
+Release 14.7 - par P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Sun Dec 14 22:33:29 2014
+Tue Dec 16 16:28:56 2014
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
@@ -278,7 +278,7 @@ Pinout by Pin Number:
 |D22       |                      |         |VCCO_16                     |         |           |16            |          |         |           |         |2.50     |          |           |                |
 |D23       |                      |IOB33M   |IO_L24P_T3_16               |UNUSED   |           |16            |          |         |           |         |         |          |           |                |
 |D24       |                      |IOB33S   |IO_L24N_T3_16               |UNUSED   |           |16            |          |         |           |         |         |          |           |                |
-|D25       |adc_gpio_dac_clr_n_o  |IOB33    |IO_L20N_T3_A19_15           |OUTPUT   |LVCMOS25   |15            |12        |SLOW     |           |         |         |LOCATED   |NO         |NONE            |
+|D25       |                      |IOB33S   |IO_L20N_T3_A19_15           |UNUSED   |           |15            |          |         |           |         |         |          |           |                |
 |D26       |                      |IOB33S   |IO_L21N_T3_DQS_A18_15       |UNUSED   |           |15            |          |         |           |         |         |          |           |                |
 |E1        |                      |IOB33M   |IO_L23P_T3_35               |UNUSED   |           |35            |          |         |           |         |         |          |           |                |
 |E2        |                      |IOB33S   |IO_L22N_T3_35               |UNUSED   |           |35            |          |         |           |         |         |          |           |                |
@@ -431,8 +431,8 @@ Pinout by Pin Number:
 |K19       |                      |         |GND                         |         |           |              |          |         |           |         |         |          |           |                |
 |K20       |                      |IOB33M   |IO_L9P_T1_DQS_AD3P_15       |UNUSED   |           |15            |          |         |           |         |         |          |           |                |
 |K21       |                      |IOB33M   |IO_L12P_T1_MRCC_15          |UNUSED   |           |15            |          |         |           |         |         |          |           |                |
-|K22       |adc_gpio_led_trig_o   |IOB33    |IO_L18P_T2_A24_15           |OUTPUT   |LVCMOS25   |15            |12        |SLOW     |           |         |         |LOCATED   |NO         |NONE            |
-|K23       |adc_gpio_led_acq_o    |IOB33    |IO_L18N_T2_A23_15           |OUTPUT   |LVCMOS25   |15            |12        |SLOW     |           |         |         |LOCATED   |NO         |NONE            |
+|K22       |                      |IOB33M   |IO_L18P_T2_A24_15           |UNUSED   |           |15            |          |         |           |         |         |          |           |                |
+|K23       |                      |IOB33S   |IO_L18N_T2_A23_15           |UNUSED   |           |15            |          |         |           |         |         |          |           |                |
 |K24       |                      |         |VCCO_14                     |         |           |14            |          |         |           |         |3.30     |          |           |                |
 |K25       |fmc_sys_sda_b<0>      |IOB33    |IO_L7P_T1_D09_14            |INPUT    |LVCMOS33   |14            |          |         |           |NONE     |         |LOCATED   |NO         |NONE            |
 |K26       |                      |IOB33S   |IO_L7N_T1_D10_14            |UNUSED   |           |14            |          |         |           |         |         |          |           |                |

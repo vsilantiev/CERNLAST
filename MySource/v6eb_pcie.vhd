@@ -82,16 +82,16 @@ entity v6pcieDMA is
 			 adc_outb_p_i : in std_logic_vector(3 downto 0);  -- ADC serial data (even bits)
 			 adc_outb_n_i : in std_logic_vector(3 downto 0);
 			
-			 adc_gpio_dac_clr_n_o : out std_logic;                     -- offset DACs clear (active low)
-			 adc_gpio_led_acq_o   : out std_logic;                     -- Mezzanine front panel power LED (PWR)
-			 adc_gpio_led_trig_o  : out std_logic;                     -- Mezzanine front panel trigger LED (TRIG)
+			 --adc_gpio_dac_clr_n_o : out std_logic;                     -- offset DACs clear (active low)
+			 --adc_gpio_led_acq_o   : out std_logic;                     -- Mezzanine front panel power LED (PWR)
+			 --adc_gpio_led_trig_o  : out std_logic;                     -- Mezzanine front panel trigger LED (TRIG)
 			 
 			 adc_gpio_ssr_ch1_o   : inout std_logic_vector(6 downto 0);  -- Channel 1 solid state relays control
 			 adc_gpio_ssr_ch2_o   : inout std_logic_vector(6 downto 0);  -- Channel 2 solid state relays control
 			 adc_gpio_ssr_ch3_o   : inout std_logic_vector(6 downto 0);  -- Channel 3 solid state relays control
 			 adc_gpio_ssr_ch4_o   : inout std_logic_vector(6 downto 0);  -- Channel 4 solid state relays control
 			 
-			 adc_gpio_si570_oe_o  : out std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
+			 adc_gpio_si570_oe_o  : inout std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
 			 
 			 adc_spi_din_i       : in  std_logic;  -- SPI data from FMC
 			 adc_spi_dout_o      : out std_logic;  -- SPI data to FMC
@@ -337,7 +337,7 @@ architecture Behavioral of v6pcieDMA is
 		adc_gpio_ssr_ch3_o   : inout std_logic_vector(6 downto 0);  -- Channel 3 solid state relays control
 		adc_gpio_ssr_ch4_o   : inout std_logic_vector(6 downto 0);  -- Channel 4 solid state relays control
 		
-		adc_gpio_si570_oe_o  : out std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
+		adc_gpio_si570_oe_o  : inout std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
 			 
 			 adc_spi_din_i       : in  std_logic;  -- SPI data from FMC
 			 adc_spi_dout_o      : out std_logic;  -- SPI data to FMC
@@ -1257,14 +1257,14 @@ cmp_fmc_adc_100Ms_core : fmc_adc_100Ms_core
 			reg05_td 		=> reg05_td,					        
          reg05_tv 		=> reg05_tv,			
 			reg06_td 		=> reg06_td,                      
-         reg06_tv 		=> reg06_tv ,
+         reg06_tv 		=> reg06_tv,
 			reg07_td 		=> reg07_td,					        
          reg07_tv 		=> reg07_tv,			
 			reg08_td 		=> reg08_td,					        
          reg08_tv 		=> reg08_tv,
          reg09_tv 		=> reg09_tv,			
 			reg09_td 		=> reg09_td,                      
-         reg10_tv 		=> reg10_tv ,
+         reg10_tv 		=> reg10_tv,
 			reg10_td 		=> reg10_td,					        
          reg11_tv 		=> reg11_tv,			
 			reg11_td 		=> reg11_td,					        
@@ -1285,14 +1285,14 @@ cmp_fmc_adc_100Ms_core : fmc_adc_100Ms_core
 			reg05_rd 		=> reg05_rd,					        
          reg05_rv 		=> reg05_rv,			
 			reg06_rd 		=> reg06_rd,                      
-         reg06_rv 		=> reg06_rv ,
+         reg06_rv 		=> reg06_rv,
 			reg07_rd 		=> reg07_rd,					        
          reg07_rv 		=> reg07_rv,			
 			reg08_rd 		=> reg08_rd,					        
          reg08_rv 		=> reg08_rv,
          reg09_rv 		=> reg09_rv,			
 			reg09_rd 		=> reg09_rd,                      
-         reg10_rv 		=> reg10_rv ,
+         reg10_rv 		=> reg10_rv,
 			reg10_rd 		=> reg10_rd,					        
          reg11_rv 		=> reg11_rv,			
 			reg11_rd 		=> reg11_rd,					        

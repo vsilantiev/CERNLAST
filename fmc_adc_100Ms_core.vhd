@@ -125,7 +125,7 @@ entity fmc_adc_100Ms_core is
 	   adc_gpio_ssr_ch3_o   : inout std_logic_vector(6 downto 0);  -- Channel 3 solid state relays control
 	   adc_gpio_ssr_ch4_o   : inout std_logic_vector(6 downto 0);  -- Channel 4 solid state relays control
 		
-				adc_gpio_si570_oe_o  : out std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
+				adc_gpio_si570_oe_o  : inout std_logic_vector(0 downto 0);                     -- Si570 (programmable oscillator) output enable
 			 
 			 adc_spi_din_i       : in  std_logic;  -- SPI data from FMC
 			 adc_spi_dout_o      : out std_logic;  -- SPI data to FMC
@@ -148,10 +148,10 @@ end fmc_adc_100Ms_core;
 architecture Behavioral of fmc_adc_100Ms_core is
 
    component i2c_master_v01
-   generic( 
-      CLK_FREQ : natural := 25000000;
-      BAUD     : natural := 100000
-   );
+   --generic( 
+   --   CLK_FREQ : natural := 10000000;--25000000;
+   --   BAUD     : natural := 100000;
+   --);
    port( 
       --INPUTS
       sys_clk    : IN     std_logic;
@@ -290,6 +290,18 @@ end component i2c_master_v01;
   signal control_iic : std_logic_vector(31 downto 0);
   signal status_iic : std_logic_vector(31 downto 0);
 
+signal indicator : std_logic_vector(31 downto 0);
+signal indicator1 : std_logic_vector(31 downto 0);
+signal indicator2 : std_logic_vector(31 downto 0);
+
+
+
+	signal  cnt_send_ack : natural range 0 to 4;
+	signal  cnt_start : natural range 0 to 4;
+	signal  cnt_stop : natural range 0 to 4;
+	signal  cnt_write : natural range 0 to 4;
+	signal  cnt_read : natural range 0 to 4;
+
    signal   free       : std_logic;
    signal   rec_ack    : std_logic;
    signal   ready      : std_logic;
@@ -298,6 +310,10 @@ end component i2c_master_v01;
    signal   read       : std_logic;
    signal   write      : std_logic;
    signal   send_ack   : std_logic;
+	
+signal p1 : std_logic;
+signal p2 : std_logic;
+	
 begin
 
 
@@ -439,6 +455,12 @@ begin
       O => clk_fb,
       I => clk_fb_buf
       );
+		
+		cmp_serdes_clk_buf: BUFG
+		port map (
+		O => serdes_clk_buf, 
+		I => serdes_clk
+		);
 
 		user_sma_gpio_p		<= fs_clk;
 		user_sma_gpio_n		<= dco_clk;
@@ -500,7 +522,7 @@ i2c_master_si570 : i2c_master_v01
    port map( 
       --INPUTS
       sys_clk    => sys_clk_i,
-      sys_rst    => sys_rst_n_i,
+      sys_rst    => sys_rst,
 		start      => start,--'1',--: IN     std_logic;
       stop       => stop,--'1',--: IN     std_logic;
       read       => read,--'0',--: IN     std_logic;
@@ -526,7 +548,7 @@ i2c_master_si570 : i2c_master_v01
       DATA_IN_FROM_PINS_N => serdes_in_n,
       DATA_IN_TO_DEVICE   => serdes_out_raw,
       BITSLIP             => serdes_bitslip,
-      CLK_IN              => serdes_clk,
+      CLK_IN              => serdes_clk_buf,
       --CLK_OUT             => clk_fb_buf,
       CLK_DIV_IN          => fs_clk,
       --LOCKED_IN           => locked_in,
@@ -534,7 +556,7 @@ i2c_master_si570 : i2c_master_v01
       --CLK_RESET           => '0',       -- unused
       IO_RESET            => sys_rst
       );
---- serdes_out_data <= serdes_out_data_d(63 downto 0); &
+--- serdes_out_data <= serdes_out_data_d(63 downto 32) &
 ---                   "000000000000000" & serdes_synced &
 ---                   "00000000" & serdes_out_fr;
  -- process (fs_clk, sys_rst_n_i)
@@ -577,6 +599,43 @@ i2c_master_si570 : i2c_master_v01
 
 ----  serdes_bitslip <= serdes_auto_bitslip;
 
+ ---- read_reg : process (trn_clk)
+ ---- begin
+ ----   if (trn_clk'event and trn_clk='1') then
+----	 if free = '1' then
+----		start <= '1';
+----		wait for 50 ns;
+----		start <= '0';
+----	 end if;
+----	 wait until (ready='1');
+----		control_iic(7 downto 0) <= X"55";
+----		write <= '1';
+	----	wait for 50 ns;
+	----	write <= '0';
+	---- wait until (ready='1');
+	----   if rec_ack = '1' then
+	----	control_iic(7 downto 0) <= X"89";
+	----	write <= '1';
+	----	wait for 50 ns;
+	----	write <= '0';
+	----	end if;
+  ----  wait until (ready='1');
+	----	if rec_ack = '1' then
+	----	control_iic(7 downto 0) <= X"16";
+	----   write <= '1';
+	----	wait for 50 ns;
+	----	write <= '0';
+	----	end if;
+	---- wait until (ready='1');
+	----  if rec_ack = '1' then
+	----  stop <= '1';
+	----  wait for 50 ns;
+	----  stop <= '0';
+	----  end if;
+  ----end if;
+  ----end process read_reg;
+  
+
 
 
   ust_reg : process (trn_clk, sys_rst_n_i)
@@ -587,6 +646,17 @@ i2c_master_si570 : i2c_master_v01
 		  reg03_strobe_length_cur <= X"00000276";	-- 7500 ns
 		  reg04_soa_length_cur <= X"00000008";	-- 80 ns
 		  reg06_rd_testbandwith_speed<= X"00000000";
+		  cnt_send_ack <= 4;
+		  cnt_start <= 4;
+		  cnt_stop <= 4;
+		  cnt_write <= 4;
+		  cnt_read <= 4;
+		  send_ack <= '0';
+		  start <= '0';
+		  stop <='0';
+		  read <= '0';
+		  write <= '0';	
+		control_iic <= X"00000000";
       elsif (trn_clk'event and trn_clk='1') then 
 	   if reg01_tv = '1' then
 		  reg01_rd_current_reflength <= reg01_td;
@@ -626,8 +696,8 @@ i2c_master_si570 : i2c_master_v01
 			resetfifo <=  '0';
 		end if;
 		
-      reg05_rd <= wasfifoerror;--  //48
-	   reg05_rv <= '1';--//1;
+  --    reg05_rd <= wasfifoerror;--  //48
+  --    reg05_rv <= '1';--//1;
 				
 		if reg06_tv = '1' then
 	   if (reg06_td > X"00000000") then
@@ -640,59 +710,104 @@ i2c_master_si570 : i2c_master_v01
 		reg06_rd <= reg06_rd_testbandwith_speed;-- // state IRQ to reg 
 	   reg06_rv <= '1';-- //49
 
-		reg07_rd(6 downto 0)  <= adc_gpio_ssr_ch1_o; --// state IRQ to reg 
+
+
+		reg07_rd(7 downto 0)  <= control_iic(7 downto 0); --// iic control 50	
+		reg07_rv <= '1'; --//51
+	
+	   if reg07_tv = '1' then
+
+		  control_iic(7 downto 0) <= reg07_td(7 downto 0); -- 51
+	   end if;
+
+
+
+		reg05_rd(6 downto 0)  <= adc_gpio_ssr_ch1_o; --// state IRQ to reg
+		reg05_rd(7 downto 7)  <= adc_gpio_si570_oe_o;
 	   --reg08_rd(6 downto 0)  <= adc_gpio_ssr_ch2_o;
 		--reg09_rd(6 downto 0)  <= adc_gpio_ssr_ch3_o;
 		--reg10_rd(6 downto 0)  <= adc_gpio_ssr_ch4_o;
-		reg07_rv <= '1'; --//50
+		reg05_rv <= '1'; --//50
 	   --reg08_rv <= '1';
 		--reg09_rv <= '1';
 		--reg10_rv <= '1';
 		
-	   if reg07_tv = '1' then
-		  adc_gpio_ssr_ch1_o <= reg07_td(6 downto 0);
-		  adc_gpio_ssr_ch2_o <= reg07_td(6 downto 0);
-		  adc_gpio_ssr_ch3_o <= reg07_td(6 downto 0);
-		  adc_gpio_ssr_ch4_o <= reg07_td(6 downto 0);
-		  adc_gpio_si570_oe_o <= reg07_td(7 downto 7);
+	   if reg05_tv = '1' then
+		  adc_gpio_ssr_ch1_o <= reg05_td(6 downto 0);
+		  adc_gpio_ssr_ch2_o <= reg05_td(6 downto 0);
+		  adc_gpio_ssr_ch3_o <= reg05_td(6 downto 0);
+		  adc_gpio_ssr_ch4_o <= reg05_td(6 downto 0);
+		  adc_gpio_si570_oe_o <= reg05_td(7 downto 7);
 	   end if;
 
-		reg08_rd(12 downto 0)  <= control_iic(12 downto 0); --// iic control 51	
-		reg08_rv <= '1'; --//51
+
+				
+		reg09_rd  <= "000000000000000" & status_iic(13 downto 0) & ready & rec_ack & free; --// iic status 52
+	   reg09_rv <= '1'; --//52
 	
-	   if reg08_tv = '1' then
-		  control_iic(7 downto 0) <= reg08_td(7 downto 0);
-		     if reg08_td(8) = '1' then
-			  send_ack <= '1';
-			  else
-			  send_ack <= '0';
-			  end if;
-			  if reg08_td(9) = '1' then
-			  write <= '1';
-			  else
-			  write <= '0';
-			  end if;
-			  if reg08_td(10) = '1' then
-			  read <= '1';
-			  else
-			  read <= '0';
-			  end if;
-			  if reg08_td(11) = '1' then
-			  stop <= '1';
-			  else
-			  stop <= '0';
-			  end if;
-			  if reg08_td(12) = '1' then
-			  start <= '1';
-			  else
-			  start <= '0';
-			  end if;			  
-	   end if;
+		if reg10_tv = '1' then
+		if (reg10_td > X"00000000") then --53
+			send_ack <= '1';
+		end if;
+		end if;
+		if send_ack = '1' then
+		cnt_send_ack <= cnt_send_ack - 1;
+		end if;
+		if cnt_send_ack = 0 then
+		send_ack <= '0';
+		end if;
 		
-		reg09_rd(16 downto 0)  <= status_iic(13 downto 0) & ready & rec_ack & free; --// iic status 52
-	     reg09_rv <= '1'; --//52
-	
-	   --if reg09_tv = '1' then
+		
+		if reg11_tv = '1' then
+		if (reg11_td > X"00000000") then --56
+			read <= '1';
+
+		end if;
+		end if;
+		if read = '1' then
+		cnt_read <= cnt_read - 1;
+		end if;
+		if cnt_read = 0 then
+		read <= '0';
+		end if;
+		
+
+		if reg12_tv = '1' then
+		if (reg12_td > X"00000000") then --57
+			write <= '1';
+		end if;
+				end if;
+		if write = '1' then
+		cnt_write <= cnt_write - 1;
+		end if;
+		if cnt_write = 0 then
+		write <= '0';
+		end if;
+		
+		if reg13_tv = '1' then
+		if (reg13_td > X"00000000") then --58
+			stop <= '1';
+
+		end if;
+				end if;
+		if stop = '1' then
+		cnt_stop <= cnt_stop - 1;
+		end if;
+		if cnt_stop = 0 then
+		stop <= '0';
+		end if;
+
+		if reg14_tv = '1' then
+		if (reg14_td > X"00000000") then --59
+			start <= '1';
+		end if;
+				end if;
+		if start = '1' then
+		cnt_start <= cnt_start - 1;
+		end if;
+		if cnt_start = 0 then
+		start <= '0';
+		end if;	   --if reg09_tv = '1' then
 		--  adc_gpio_ssr_ch3_o <= reg09_td(6 downto 0);
 	  -- end if;
 		
@@ -705,8 +820,8 @@ i2c_master_si570 : i2c_master_v01
 		
 		--reg07_rd(31 downto 0) <= serdes_out_data(31 downto 0);-- //50
 	   --reg07_rv <= '1';		
-      reg13_rd <= X"000003E8";
-	   reg13_rv <= '1';--//1;
+      --reg13_rd <= X"000003E8";
+	   --reg13_rv <= '1';--//1;
 	end if;
    end process ust_reg;
 

@@ -362,13 +362,13 @@ NET "adc_spi_cs_dac3_n_o" IOSTANDARD = "LVCMOS25";
 NET "adc_spi_cs_dac4_n_o" LOC = F25; # LA33_N
 NET "adc_spi_cs_dac4_n_o" IOSTANDARD = "LVCMOS25";
 
-NET "adc_gpio_dac_clr_n_o" LOC = D25; # LA30_N
-NET "adc_gpio_dac_clr_n_o" IOSTANDARD = "LVCMOS25";
+#NET "adc_gpio_dac_clr_n_o" LOC = D25; # LA30_N
+#NET "adc_gpio_dac_clr_n_o" IOSTANDARD = "LVCMOS25";
 
-NET "adc_gpio_led_acq_o" LOC = K23; # LA28_N
-NET "adc_gpio_led_acq_o" IOSTANDARD = "LVCMOS25";
-NET "adc_gpio_led_trig_o" LOC = K22; # LA28_P
-NET "adc_gpio_led_trig_o" IOSTANDARD = "LVCMOS25";
+#NET "adc_gpio_led_acq_o" LOC = K23; # LA28_N
+#NET "adc_gpio_led_acq_o" IOSTANDARD = "LVCMOS25";
+#NET "adc_gpio_led_trig_o" LOC = K22; # LA28_P
+#NET "adc_gpio_led_trig_o" IOSTANDARD = "LVCMOS25";
 
 NET "adc_gpio_si570_oe_o[0]" LOC = AB5; # LA06_N
 NET "adc_gpio_si570_oe_o[0]" IOSTANDARD = "LVCMOS25";

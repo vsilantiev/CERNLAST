@@ -1,53 +1,31 @@
 Release 14.7 Drc P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Wed Dec 10 22:27:41 2014
+Tue Dec 16 16:29:41 2014
 
 drc -z v6pcieDMA.ncd v6pcieDMA.pcf
 
 WARNING:PhysDesignRules:372 - Gated clock. Clock net icon_control0<13> is
    sourced by a combinatorial pin. This is not good design practice. Use the CE
    pin to control the loading of data into the flip-flop.
-ERROR:PhysDesignRules:368 - The signal <adc_spi_cs_dac4_n_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_spi_dout_o_OBUF> is incomplete. The
-   signal is not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_gpio_dac_clr_n_o_OBUF> is
-   incomplete. The signal is not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_gpio_led_acq_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_gpio_si570_oe_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
 WARNING:PhysDesignRules:367 - The signal <adc_spi_din_i_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <adc_si570_sda_b<0>_IBUF> is
-   incomplete. The signal does not drive any load pins in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_spi_cs_dac1_n_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
-WARNING:PhysDesignRules:367 - The signal <adc_si570_scl_b<0>_IBUF> is
-   incomplete. The signal does not drive any load pins in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_spi_cs_adc_n_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
 WARNING:PhysDesignRules:367 - The signal <clk_200MHz> is incomplete. The signal
    does not drive any load pins in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_spi_cs_dac3_n_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_gpio_led_trig_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
 WARNING:PhysDesignRules:367 - The signal <fmc_sys_sda_b<0>_IBUF> is incomplete.
    The signal does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <fmc_prsnt_m2c_n_i_IBUF> is incomplete.
    The signal does not drive any load pins in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_spi_sck_o_OBUF> is incomplete. The
-   signal is not driven by any source pin in the design.
 WARNING:PhysDesignRules:367 - The signal <fmc_sys_scl_b<0>_IBUF> is incomplete.
    The signal does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <adc_one_wire_b_IBUF> is incomplete.
    The signal does not drive any load pins in the design.
-ERROR:PhysDesignRules:368 - The signal <adc_spi_cs_dac2_n_o_OBUF> is incomplete.
-   The signal is not driven by any source pin in the design.
 WARNING:PhysDesignRules:367 - The signal <trn_reset_n> is incomplete. The signal
    does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/gtp_pipe_reset.gtp_pip
+   e_reset_i/RST_RXUSRCLK> is incomplete. The signal does not drive any load
+   pins in the design.
 WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline
    _inst/NULL_RX_tkeep<5>> is incomplete. The signal does not drive any load
@@ -56,6 +34,10 @@ WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline
    _inst/NULL_RX_tkeep<4>> is incomplete. The signal does not drive any load
    pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline
+   _inst/NULL_RDST_RDY> is incomplete. The signal does not drive any load pins
+   in the design.
 WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_raddr<12>> is
    incomplete. The signal does not drive any load pins in the design.
@@ -121,142 +103,13 @@ WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
    ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
    is being ignored.
 WARNING:PhysDesignRules:367 - The signal
+   <theTlpControl/Memory_Space/eb_FIFO_Status<11>> is incomplete. The signal
+   does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
+   <theTlpControl/Memory_Space/eb_FIFO_Status<10>> is incomplete. The signal
+   does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal
    <theTlpControl/rx_Itf/Rx_Input_Delays/trn_rrem_n<0>> is incomplete. The
    signal does not drive any load pins in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<31>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<30>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<29>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<28>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<15>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<14>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<13>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:368 - The signal
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<12>> is incomplete. The signal is
-   not driven by any source pin in the design.
-ERROR:PhysDesignRules:1385 - Issue with pin connections and/or configuration on
-   block:<U_ila_pro_0/U0/I_NO_D.U_ILA/I_DQ.U_DQQ/DLY_9.DLY_9_GEN[19].I_SRLT_NE_0
-   .DLY9/SRL16E>:<LUT_OR_MEM6>.  For RAMMODE programming set with DPRAM32 or
-   SPRAM32 or SRL16 the DI2 input pin must be connected.
-ERROR:PhysDesignRules:1385 - Issue with pin connections and/or configuration on
-   block:<U_ila_pro_0/U0/I_NO_D.U_ILA/I_DQ.U_DQQ/DLY_9.DLY_9_GEN[18].I_SRLT_NE_0
-   .DLY9/SRL16E>:<LUT_OR_MEM6>.  For RAMMODE programming set with DPRAM32 or
-   SPRAM32 or SRL16 the DI2 input pin must be connected.
-ERROR:PhysDesignRules:1385 - Issue with pin connections and/or configuration on
-   block:<U_ila_pro_0/U0/I_NO_D.U_ILA/I_DQ.U_DQQ/DLY_9.DLY_9_GEN[17].I_SRLT_NE_0
-   .DLY9/SRL16E>:<LUT_OR_MEM6>.  For RAMMODE programming set with DPRAM32 or
-   SPRAM32 or SRL16 the DI2 input pin must be connected.
-ERROR:PhysDesignRules:1385 - Issue with pin connections and/or configuration on
-   block:<U_ila_pro_0/U0/I_NO_D.U_ILA/I_DQ.U_DQQ/DLY_9.DLY_9_GEN[16].I_SRLT_NE_0
-   .DLY9/SRL16E>:<LUT_OR_MEM6>.  For RAMMODE programming set with DPRAM32 or
-   SPRAM32 or SRL16 the DI2 input pin must be connected.
-ERROR:PhysDesignRules:10 - The network <adc_spi_cs_dac4_n_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_spi_dout_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_gpio_dac_clr_n_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_gpio_led_acq_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_gpio_si570_oe_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_spi_cs_dac1_n_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_spi_cs_adc_n_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_spi_cs_dac3_n_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_gpio_led_trig_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_spi_sck_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network <adc_spi_cs_dac2_n_o_OBUF> is completely
-   unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<31>> is completely unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<30>> is completely unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<29>> is completely unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<28>> is completely unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<15>> is completely unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<14>> is completely unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<13>> is completely unrouted.
-ERROR:PhysDesignRules:10 - The network
-   <LoopBack_FIFO_Off.queue_buffer0/B2H_wr_din<12>> is completely unrouted.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[3].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[5].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[7].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[0].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[2].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[4].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[6].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2455 - Unsupported clocking topology used for ISERDESE2
-   <cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[1].iserdese2_master>. This can
-   result in corrupted data. The CLK / CLKDIV pins should be driven by the same
-   source through the same buffer type or by a BUFIO / BUFR combination in order
-   to have a proper phase relationship. Please refer to the Select I/O User
-   Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
-WARNING:PhysDesignRules:2240 - The MMCME2_ADV block
-   <cmp_fmc_adc_100Ms_core/mmcm_adv_inst> has CLKOUT pins that do not drive the
-   same kind of BUFFER load. Routing from the different buffer types will not be
-   phase aligned. 
-WARNING:PhysDesignRules:2400 - The MMCME2_ADV block
-   <cmp_fmc_adc_100Ms_core/mmcm_adv_inst> <CLKFBOUT> pin does not drive the same
-   kind of BUFFER load as the other CLKOUT pins. Routing from the different
-   buffer types will not be phase aligned and therefore zero hold time at the IO
-   flip-flop(s) may not be met. 
-ERROR:Bitgen:25 - DRC detected 42 errors and 39 warnings.  Please see the
-   previously displayed individual error or warning messages for more details.
+DRC detected 0 errors and 31 warnings.  Please see the previously displayed
+individual error or warning messages for more details.
