@@ -82,7 +82,7 @@ architecture test of testpll_tb is
 
 
   -- we'll be using the period in many locations
-  constant PER1        : time := 2.500 ns;
+  constant PER1        : time := 80.000 ns;
 
 
   -- Declare the input clock signals
@@ -100,10 +100,10 @@ architecture test of testpll_tb is
   signal CLK_OUT : std_logic_vector(2 downto 1);
 --Freq Check using the M & D values setting and actual Frequency generated
   signal period1 : time := 0 ps;
-constant  ref_period1_clkin1 : time := (2.500*1*1.000/2.000)*1000 ps;
+constant  ref_period1_clkin1 : time := (80.000*1*8.000/64.000)*1000 ps;
    signal prev_rise1 : time := 0 ps;
   signal period2 : time := 0 ps;
-constant  ref_period2_clkin1 : time := (2.500*1*8/2.000)*1000 ps;
+constant  ref_period2_clkin1 : time := (80.000*1*64/64.000)*1000 ps;
    signal prev_rise2 : time := 0 ps;
 
 component testpll_exdes

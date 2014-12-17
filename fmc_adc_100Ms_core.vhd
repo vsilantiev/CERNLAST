@@ -301,6 +301,7 @@ signal indicator2 : std_logic_vector(31 downto 0);
 	signal  cnt_stop : natural range 0 to 4;
 	signal  cnt_write : natural range 0 to 4;
 	signal  cnt_read : natural range 0 to 4;
+	signal cnt_recack : natural range 0 to 30000000;
 
    signal   free       : std_logic;
    signal   rec_ack    : std_logic;
@@ -311,13 +312,17 @@ signal indicator2 : std_logic_vector(31 downto 0);
    signal   write      : std_logic;
    signal   send_ack   : std_logic;
 	
-signal p1 : std_logic;
-signal p2 : std_logic;
+
 	
+	
+  type Si570_master_state is ( mstr_idle, mstr_start_cnt, mstr_wait_ready_1, mstr_write_1, mstr_wait_ack, mstr_write_2, mstr_wait_ready_2, mstr_write_3, mstr_stop_cnt);
+ 
+  signal stm_mstr : Si570_master_state;
+	
+	
+	
+
 begin
-
-
-
   ------------------------------------------------------------------------------
   -- Resets
   ------------------------------------------------------------------------------
@@ -391,18 +396,18 @@ begin
     COMPENSATION         => "ZHOLD",
     STARTUP_WAIT         => FALSE,
     DIVCLK_DIVIDE        => 1,
-    CLKFBOUT_MULT_F      => 2.000,
+    CLKFBOUT_MULT_F      => 5.000,----2.000
     CLKFBOUT_PHASE       => 0.000,
     CLKFBOUT_USE_FINE_PS => FALSE,
-    CLKOUT0_DIVIDE_F     => 1.000,
+    CLKOUT0_DIVIDE_F     => 2.500,----1.000
     CLKOUT0_PHASE        => 0.000,
     CLKOUT0_DUTY_CYCLE   => 0.500,
     CLKOUT0_USE_FINE_PS  => FALSE,
-    CLKOUT1_DIVIDE       => 8,
+    CLKOUT1_DIVIDE       => 20,--8
     CLKOUT1_PHASE        => 0.000,
     CLKOUT1_DUTY_CYCLE   => 0.500,
     CLKOUT1_USE_FINE_PS  => FALSE,
-    CLKIN1_PERIOD        => 2.500,
+    CLKIN1_PERIOD        => 5.000,--2.500
     REF_JITTER1          => 0.010)
   port map
     -- Output clocks
@@ -463,7 +468,7 @@ begin
 		);
 
 		user_sma_gpio_p		<= fs_clk;
-		user_sma_gpio_n		<= dco_clk;
+		user_sma_gpio_n		<= serdes_clk_buf;
 	
 		
   --============================================================================
@@ -635,6 +640,111 @@ i2c_master_si570 : i2c_master_v01
   ----end if;
   ----end process read_reg;
   
+  
+  
+  Si570 : process (trn_clk, sys_rst_n_i)
+  begin
+     if sys_rst_n_i = '0' then
+		  cnt_start <= 4;
+		  cnt_stop <= 4;
+		  cnt_write <= 4;
+		  send_ack <= '0';
+		  start <= '0';
+		  stop <='0';
+		  read <= '0';
+		  write <= '0';	
+		  control_iic <= X"00000000";
+		elsif rising_edge( trn_clk ) then      
+          case stm_mstr is
+          -------------------  
+          when mstr_idle =>                                   
+            if ( reg07_tv = '1' and free = '1' ) then
+              stm_mstr <= mstr_start_cnt;
+				  start <= '1';
+            else
+              stm_mstr <= mstr_idle;
+            end if;
+          -------------------
+          when mstr_start_cnt =>
+					start <= '1';
+            if ( cnt_start >	0) then
+              cnt_start <= cnt_start - 1;
+              stm_mstr <= mstr_start_cnt;
+            else
+				  start <= '0';
+              cnt_start <= 4;
+              stm_mstr <= mstr_wait_ready_1;
+            end if;
+			 
+			 when mstr_wait_ready_1 =>
+			 control_iic(7 downto 0) <= reg07_td(7 downto 0);--   X"AA";
+				if (ready = '1') then
+					stm_mstr <= mstr_write_1;
+				else
+					stm_mstr <= mstr_wait_ready_1;
+				end if;
+				
+			when mstr_write_1 =>
+					write <= '1';
+					if (cnt_write > 0) then
+				      cnt_write <= cnt_write - 1;
+						stm_mstr <= mstr_write_1;
+					else
+						write <= '0';
+						cnt_write <= 4;
+						stm_mstr <= mstr_wait_ack;
+            end if;
+				
+		   when mstr_wait_ack =>
+						control_iic(7 downto 0) <= reg07_td(15 downto 8);-- X"89";
+					if (ack = '1' and ready = '1') then
+						stm_mstr <= mstr_write_2;
+					else
+						stm_mstr <= mstr_wait_ack;
+					end if;
+  			when mstr_write_2 =>
+					write <= '1';
+					if (cnt_write > 0) then
+				      cnt_write <= cnt_write - 1;
+						stm_mstr <= mstr_write_2;
+					else
+						write <= '0';
+						cnt_write <= 4;
+						stm_mstr <= mstr_wait_ready_2;
+            end if;
+		  when mstr_wait_ready_2 =>
+					control_iic(7 downto 0) <= reg07_td(23 downto 16);--X"10";
+				if (ready = '1' and ack = '1') then
+					stm_mstr <= mstr_write_3;
+				else
+					stm_mstr <= mstr_wait_ready_2;
+				end if;				
+  			when mstr_write_3 =>
+					write <= '1';
+					if (cnt_write > 0) then
+				      cnt_write <= cnt_write - 1;
+						stm_mstr <= mstr_write_3;
+					else
+						write <= '0';
+						cnt_write <= 4;
+						stm_mstr <= mstr_stop_cnt;
+					end if;
+		   when mstr_stop_cnt =>
+					stop <= '1';
+            if ( cnt_stop >	0) then
+              cnt_stop <= cnt_stop - 1;
+              stm_mstr <= mstr_stop_cnt;
+            else
+				  stop <= '0';
+              cnt_stop <= 4;
+              stm_mstr <= mstr_idle;
+            end if;
+			 when others => stm_mstr <= mstr_idle;
+          end case;       
+      end if;	
+  end process Si570;
+  
+  
 
 
 
@@ -647,17 +757,17 @@ i2c_master_si570 : i2c_master_v01
 		  reg04_soa_length_cur <= X"00000008";	-- 80 ns
 		  reg06_rd_testbandwith_speed<= X"00000000";
 		  cnt_send_ack <= 4;
-		  cnt_start <= 4;
-		  cnt_stop <= 4;
-		  cnt_write <= 4;
+		  --cnt_start <= 4;
+		  --cnt_stop <= 4;
+		  --cnt_write <= 4;
 		  cnt_read <= 4;
-		  send_ack <= '0';
-		  start <= '0';
-		  stop <='0';
-		  read <= '0';
-		  write <= '0';	
-		control_iic <= X"00000000";
-      elsif (trn_clk'event and trn_clk='1') then 
+		  cnt_recack <= 30000000;
+
+        
+		  
+		
+		
+		elsif (trn_clk'event and trn_clk='1') then 
 	   if reg01_tv = '1' then
 		  reg01_rd_current_reflength <= reg01_td;
 	   end if;
@@ -712,13 +822,12 @@ i2c_master_si570 : i2c_master_v01
 
 
 
-		reg07_rd(7 downto 0)  <= control_iic(7 downto 0); --// iic control 50	
+		reg07_rd(31 downto 0)  <= control_iic(31 downto 0); --// iic control 50	
 		reg07_rv <= '1'; --//51
 	
-	   if reg07_tv = '1' then
-
-		  control_iic(7 downto 0) <= reg07_td(7 downto 0); -- 51
-	   end if;
+	   --if reg07_tv = '1' then
+		--  control_iic(31 downto 0) <= reg07_td(31 downto 0); -- 51
+	   --end if;
 
 
 
@@ -744,70 +853,76 @@ i2c_master_si570 : i2c_master_v01
 				
 		reg09_rd  <= "000000000000000" & status_iic(13 downto 0) & ready & rec_ack & free; --// iic status 52
 	   reg09_rv <= '1'; --//52
-	
-		if reg10_tv = '1' then
-		if (reg10_td > X"00000000") then --53
-			send_ack <= '1';
-		end if;
-		end if;
-		if send_ack = '1' then
-		cnt_send_ack <= cnt_send_ack - 1;
-		end if;
-		if cnt_send_ack = 0 then
-		send_ack <= '0';
-		end if;
-		
-		
-		if reg11_tv = '1' then
-		if (reg11_td > X"00000000") then --56
-			read <= '1';
-
-		end if;
-		end if;
-		if read = '1' then
-		cnt_read <= cnt_read - 1;
-		end if;
-		if cnt_read = 0 then
-		read <= '0';
-		end if;
 		
 
-		if reg12_tv = '1' then
-		if (reg12_td > X"00000000") then --57
-			write <= '1';
-		end if;
-				end if;
-		if write = '1' then
-		cnt_write <= cnt_write - 1;
-		end if;
-		if cnt_write = 0 then
-		write <= '0';
-		end if;
 		
-		if reg13_tv = '1' then
-		if (reg13_td > X"00000000") then --58
-			stop <= '1';
+	-----	if reg10_tv = '1' then
+	-----	if (reg10_td > X"00000000") then --53
+	-----		send_ack <= '1';
+	-----	end if;
+	-----	end if;
+	-----	if send_ack = '1' then
+	-----	cnt_send_ack <= cnt_send_ack - 1;
+	-----	end if;
+	-----	if cnt_send_ack = 0 then
+	-----	send_ack <= '0';
+	-----	end if;
+		
+		
+	-----	if reg11_tv = '1' then
+	-----	if (reg11_td > X"00000000") then --56
+	-----		read <= '1';
 
-		end if;
-				end if;
-		if stop = '1' then
-		cnt_stop <= cnt_stop - 1;
-		end if;
-		if cnt_stop = 0 then
-		stop <= '0';
-		end if;
+	-----	end if;
+	-----	end if;
+	-----	if read = '1' then
+	-----	cnt_read <= cnt_read - 1;
+	-----	end if;
+	-----	if cnt_read = 0 then
+	-----	read <= '0';
+	-----	end if;
+		
 
-		if reg14_tv = '1' then
-		if (reg14_td > X"00000000") then --59
-			start <= '1';
-		end if;
-				end if;
-		if start = '1' then
-		cnt_start <= cnt_start - 1;
-		end if;
-		if cnt_start = 0 then
-		start <= '0';
-		end if;	   --if reg09_tv = '1' then
+	-----	if reg12_tv = '1' then
+	-----	if (reg12_td > X"00000000") then --57
+	-----		write <= '1';
+	-----	end if;
+	-----			end if;
+	-----	if write = '1' then
+	-----	cnt_write <= cnt_write - 1;
+	-----	end if;
+	-----	if cnt_write = 0 then
+	-----	write <= '0';
+	-----	end if;
+		
+	-----	if reg13_tv = '1' then
+	-----	if (reg13_td > X"00000000") then --58
+	-----		stop <= '1';
+
+	-----	end if;
+	-----			end if;
+	-----	if stop = '1' then
+	-----	cnt_stop <= cnt_stop - 1;
+	-----	end if;
+	-----	if cnt_stop = 0 then
+	-----	stop <= '0';
+	-----	end if;
+
+	-----	if reg14_tv = '1' then
+	-----	if (reg14_td > X"00000000") then --59
+	-----		start <= '1';
+	-----	end if;
+	-----			end if;
+	-----	if start = '1' then
+	-----	cnt_start <= cnt_start - 1;
+	-----	end if;
+	-----	if cnt_start = 0 then
+	-----	start <= '0';
+	-----	end if;
+
+
+
+	   --if reg09_tv = '1' then
 		--  adc_gpio_ssr_ch3_o <= reg09_td(6 downto 0);
 	  -- end if;
 		

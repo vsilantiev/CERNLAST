@@ -1,5 +1,5 @@
 #ChipScope Core Inserter Project File Version 3.0
-#Tue Dec 16 15:49:21 MSK 2014
+#Wed Dec 17 13:01:03 MSK 2014
 Project.device.designInputFile=/home/vladimir/CERN/CERNLAST/v6pcieDMA_cs.ngc
 Project.device.designOutputFile=/home/vladimir/CERN/CERNLAST/v6pcieDMA_cs.ngc
 Project.device.deviceFamily=21
@@ -7,7 +7,7 @@ Project.device.enableRPMs=true
 Project.device.outputDirectory=/home/vladimir/CERN/CERNLAST/_ngo
 Project.device.useSRL16=true
 Project.filter.dimension=19
-Project.filter<0>=BUFG
+Project.filter<0>=
 Project.filter<10>=serdes_clk_buf
 Project.filter<11>=clk_fb
 Project.filter<12>=dco_clk
@@ -17,7 +17,7 @@ Project.filter<15>=reg08_rv
 Project.filter<16>=reg08_td
 Project.filter<17>=reg08_rd
 Project.filter<18>=reg08_tv
-Project.filter<1>=
+Project.filter<1>=BUFG
 Project.filter<2>=send_ack
 Project.filter<3>=control_iic<0>
 Project.filter<4>=reg07_rv
@@ -32,7 +32,7 @@ Project.icon.enableExtTriggerOut=false
 Project.icon.triggerInPinName=
 Project.icon.triggerOutPinName=
 Project.unit.dimension=1
-Project.unit<0>.clockChannel=cmp_fmc_adc_100Ms_core clk_fb
+Project.unit<0>.clockChannel=trn_clk
 Project.unit<0>.clockEdge=Rising
 Project.unit<0>.dataChannel<0>=cmp_fmc_adc_100Ms_core send_ack
 Project.unit<0>.dataChannel<10>=cmp_fmc_adc_100Ms_core reg07_rd_6

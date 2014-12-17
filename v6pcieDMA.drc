@@ -1,13 +1,10 @@
 Release 14.7 Drc P.20131013 (lin64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Tue Dec 16 16:29:41 2014
+Wed Dec 17 17:39:49 2014
 
 drc -z v6pcieDMA.ncd v6pcieDMA.pcf
 
-WARNING:PhysDesignRules:372 - Gated clock. Clock net icon_control0<13> is
-   sourced by a combinatorial pin. This is not good design practice. Use the CE
-   pin to control the loading of data into the flip-flop.
 WARNING:PhysDesignRules:367 - The signal <adc_spi_din_i_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <clk_200MHz> is incomplete. The signal
@@ -22,10 +19,6 @@ WARNING:PhysDesignRules:367 - The signal <adc_one_wire_b_IBUF> is incomplete.
    The signal does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <trn_reset_n> is incomplete. The signal
    does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal
-   <make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/gtp_pipe_reset.gtp_pip
-   e_reset_i/RST_RXUSRCLK> is incomplete. The signal does not drive any load
-   pins in the design.
 WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline
    _inst/NULL_RX_tkeep<5>> is incomplete. The signal does not drive any load
@@ -103,13 +96,7 @@ WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
    ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
    is being ignored.
 WARNING:PhysDesignRules:367 - The signal
-   <theTlpControl/Memory_Space/eb_FIFO_Status<11>> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal
-   <theTlpControl/Memory_Space/eb_FIFO_Status<10>> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal
    <theTlpControl/rx_Itf/Rx_Input_Delays/trn_rrem_n<0>> is incomplete. The
    signal does not drive any load pins in the design.
-DRC detected 0 errors and 31 warnings.  Please see the previously displayed
+DRC detected 0 errors and 27 warnings.  Please see the previously displayed
 individual error or warning messages for more details.

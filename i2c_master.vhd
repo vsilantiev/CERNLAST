@@ -45,7 +45,7 @@ ARCHITECTURE arc OF i2c_master_v01 IS
  
   constant FRAME     : natural := 11; -- number of bits in frame: start, stop, 8 bits data, 1 bit acknoledge
   constant BAUD      : natural := 10000;
-  constant CLK_FREQ : natural  := 300000000;
+  constant CLK_FREQ : natural  := 100000000;
   constant FULL_BIT  : natural := ( CLK_FREQ / BAUD - 1 ) / 2;
   constant HALF_BIT  : natural := FULL_BIT / 2;
   constant GAP_WIDTH : natural := FULL_BIT * 4;  

@@ -280,29 +280,6 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="140"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="55"/>
     </file>
-    <file xil_pn:name="reg.cdc" xil_pn:type="FILE_CDC">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="shift.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="192"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="192"/>
-    </file>
-    <file xil_pn:name="controller_interface.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="193"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="193"/>
-    </file>
-    <file xil_pn:name="counter.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="194"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="194"/>
-    </file>
-    <file xil_pn:name="i2c_blk.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="195"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="195"/>
-    </file>
-    <file xil_pn:name="ms_core.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="196"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="196"/>
-    </file>
     <file xil_pn:name="ipcore_dir/testpll.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
