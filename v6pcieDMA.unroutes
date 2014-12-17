@@ -1,10 +1,17 @@
-Release 14.7 - par P.20131013 (lin64)
+Release 14.7 - par P.20131013 (nt64)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Tue Dec 16 16:28:56 2014
+Wed Dec 17 01:04:40 2014
 
 All signals are completely routed.
 
+WARNING:ParHelpers:362 - There are 4 sourceless signals in this design. This design will not pass the DRC check run by
+   Bitgen.
+
+   cmp_fmc_adc_100Ms_core/si570_scl_oe_n
+   cmp_fmc_adc_100Ms_core/si570_scl_out
+   cmp_fmc_adc_100Ms_core/si570_sda_oe_n
+   cmp_fmc_adc_100Ms_core/si570_sda_out
 WARNING:ParHelpers:361 - There are 67 loadless signals in this design. This design will cause Bitgen to issue DRC
    warnings.
 

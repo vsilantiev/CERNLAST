@@ -23,7 +23,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
-
+--use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -147,31 +147,34 @@ end fmc_adc_100Ms_core;
 
 architecture Behavioral of fmc_adc_100Ms_core is
 
-   component i2c_master_v01
-   --generic( 
-   --   CLK_FREQ : natural := 10000000;--25000000;
-   --   BAUD     : natural := 100000;
-   --);
-   port( 
-      --INPUTS
-      sys_clk    : IN     std_logic;
-      sys_rst    : IN     std_logic;
-		start      : IN     std_logic;
-      stop       : IN     std_logic;
-      read       : IN     std_logic;
-      write      : IN     std_logic;
-      send_ack   : IN     std_logic;
-      mstr_din   : IN     std_logic_vector (7 DOWNTO 0); -- address and data
-      --OUTPUTS
-      sda        : INOUT  std_logic;
-      scl        : INOUT  std_logic;
-      free       : OUT    std_logic;
-      rec_ack    : OUT    std_logic;
-      ready      : OUT    std_logic;
-      core_state : OUT    std_logic_vector (5 DOWNTO 0);  --for debug purpose
-      mstr_dout  : OUT    std_logic_vector (7 DOWNTO 0)
-   );
-end component i2c_master_v01;
+  component i2c_master_top is
+    generic(
+            ARST_LVL : std_logic := '0'                   -- asynchronous reset level
+    );
+    port   (
+            -- wishbone signals
+            wb_clk_i      : in  std_logic;                    -- master clock input
+            wb_rst_i      : in  std_logic := '0';             -- synchronous active high reset
+            arst_i        : in  std_logic := not ARST_LVL;    -- asynchronous reset
+            wb_adr_i      : in  std_logic_vector(2 downto 0); -- lower address bits
+            wb_dat_i      : in  std_logic_vector(7 downto 0); -- Databus input
+            wb_dat_o      : out std_logic_vector(7 downto 0); -- Databus output
+            wb_we_i       : in  std_logic;                    -- Write enable input
+            wb_stb_i      : in  std_logic;                    -- Strobe signals / core select signal
+            wb_cyc_i      : in  std_logic;                    -- Valid bus cycle input
+            wb_ack_o      : out std_logic;                    -- Bus cycle acknowledge output
+            wb_inta_o     : out std_logic;                    -- interrupt request output signal
+
+            -- i2c lines
+            scl_pad_i     : in  std_logic;                    -- i2c clock line input
+            scl_pad_o     : out std_logic;                    -- i2c clock line output
+            scl_padoen_o  : out std_logic;                    -- i2c clock line output enable, active low
+            sda_pad_i     : in  std_logic;                    -- i2c data line input
+            sda_pad_o     : out std_logic;                    -- i2c data line output
+            sda_padoen_o  : out std_logic                     -- i2c data line output enable, active low
+    );
+end component i2c_master_top;
+  
   
   component serdes
     generic
@@ -311,9 +314,23 @@ signal indicator2 : std_logic_vector(31 downto 0);
    signal   write      : std_logic;
    signal   send_ack   : std_logic;
 	
-signal p1 : std_logic;
-signal p2 : std_logic;
-	
+
+
+
+	signal si570_sda_out : std_logic;
+	signal si570_sda_in : std_logic;
+	signal si570_sda_oe_n : std_logic;
+	signal si570_scl_out : std_logic;
+	signal si570_scl_in : std_logic;
+	signal si570_scl_oe_n  : std_logic;
+	signal wb_inta_o : std_logic;
+
+	        signal    wb_we_i   :  std_logic;                    -- Write enable input
+          signal  wb_stb_i    :   std_logic;                    -- Strobe signals / core select signal
+          signal  wb_cyc_i   :   std_logic; 
+			 
+			    signal         arst_i     :   std_logic;-- : in  std_logic := not ARST_LVL;    -- asynchronous reset
+          signal  wb_adr_i   :   std_logic_vector (2 downto 0);
 begin
 
 
@@ -518,27 +535,38 @@ fifowr_clk <= fs_clk;
 
 
   
-i2c_master_si570 : i2c_master_v01
-   port map( 
-      --INPUTS
-      sys_clk    => sys_clk_i,
-      sys_rst    => sys_rst,
-		start      => start,--'1',--: IN     std_logic;
-      stop       => stop,--'1',--: IN     std_logic;
-      read       => read,--'0',--: IN     std_logic;
-      write      => write,--'1',--: IN     std_logic;
-      send_ack   => send_ack,--'1',--: IN     std_logic;
-      mstr_din   => control_iic(7 downto 0),--X"55",--: IN     std_logic_vector (7 DOWNTO 0); -- address and data 
-      --OUTPUTS
-      sda        => adc_si570_sda_b,-- : INOUT  std_logic;
-      scl        => adc_si570_scl_b,--: INOUT  std_logic;
-      free       => free,---: OUT    std_logic;
-      rec_ack    => rec_ack,--: OUT    std_logic;
-      ready      => ready,--: OUT    std_logic;
-      core_state => status_iic(13 downto 8),--: OUT    std_logic_vector (5 DOWNTO 0);  --for debug purpose
-      mstr_dout  => status_iic(7 downto 0)--: OUT    std_logic_vector (7 DOWNTO 0)
-   );
 
+i2c_master_si570 : i2c_master_top
+    port map  (
+            -- wishbone signals
+            wb_clk_i  => sys_clk_i,  --  : in  std_logic;                    -- master clock input
+            wb_rst_i   => sys_rst_n_i, --  : in  std_logic := '0';             -- synchronous active high reset
+            arst_i     =>  arst_i,-- : in  std_logic := not ARST_LVL;    -- asynchronous reset
+            wb_adr_i   => wb_adr_i,--   : in  std_logic_vector(2 downto 0); -- lower address bits
+            wb_dat_i =>   control_iic(7 downto 0),--  : in  std_logic_vector(7 downto 0); -- Databus input
+            wb_dat_o =>   status_iic(7 downto 0),--    : out std_logic_vector(7 downto 0); -- Databus output
+            wb_we_i  =>  wb_we_i,--   : in  std_logic;                    -- Write enable input
+            wb_stb_i => wb_stb_i, --   : in  std_logic;                    -- Strobe signals / core select signal
+            wb_cyc_i => wb_cyc_i,--    : in  std_logic;                    -- Valid bus cycle input
+            wb_ack_o   =>  rec_ack,--  : out std_logic;                    -- Bus cycle acknowledge output
+            wb_inta_o  =>  wb_inta_o, --  : out std_logic;                    -- interrupt request output signal
+
+            -- i2c lines
+            scl_pad_i => si570_scl_in,   --: in  std_logic;                    -- i2c clock line input
+            scl_pad_o => si570_scl_out,    --: out std_logic;                    -- i2c clock line output
+            scl_padoen_o => si570_scl_oe_n, --  : out std_logic;                    -- i2c clock line output enable, active low
+            sda_pad_i => si570_sda_in,    --: in  std_logic;                    -- i2c data line input
+            sda_pad_o => si570_sda_out,    --: out std_logic;                    -- i2c data line output
+            sda_padoen_o => si570_sda_oe_n  --: out std_logic                     -- i2c data line output enable, active low
+    );
+	 
+	 
+  -- Tri-state buffer for SDA and SCL
+  adc_si570_scl_b  <= si570_scl_out when (si570_scl_oe_n = '0') else 'Z';
+  si570_scl_in <= adc_si570_scl_b;
+
+  adc_si570_sda_b  <= si570_sda_out when (si570_sda_oe_n = '0') else 'Z';
+  si570_sda_in <= adc_si570_sda_b;
   ------------------------------------------------------------------------------
   -- ADC data and frame SerDes
   ------------------------------------------------------------------------------
@@ -742,7 +770,7 @@ i2c_master_si570 : i2c_master_v01
 
 
 				
-		reg09_rd  <= "000000000000000" & status_iic(13 downto 0) & ready & rec_ack & free; --// iic status 52
+		reg09_rd(7 downto 0)  <= status_iic(7 downto 0); --// iic status 52
 	   reg09_rv <= '1'; --//52
 	
 		if reg10_tv = '1' then
