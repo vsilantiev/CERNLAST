@@ -10,7 +10,7 @@ Target Device  : xc7a200t
 Target Package : fbg676
 Target Speed   : -2
 Mapper Version : artix7 -- $Revision: 1.55 $
-Mapped Date    : Wed Dec 17 17:18:36 2014
+Mapped Date    : Tue Jan 13 14:58:46 2015
 
 WARNING:LIT:701 - PAD symbol "pci_exp_rxp<3>" has an undefined IOSTANDARD.
 WARNING:LIT:702 - PAD symbol "pci_exp_rxp<3>" is not constrained (LOC) to a
@@ -18,8 +18,32 @@ WARNING:LIT:702 - PAD symbol "pci_exp_rxp<3>" is not constrained (LOC) to a
 Mapping design into LUTs...
 WARNING:MapLib:701 - Signal adc_fr_p_i connected to top level port adc_fr_p_i
    has been removed.
+WARNING:MapLib:701 - Signal adc_outa_p_i<3> connected to top level port
+   adc_outa_p_i<3> has been removed.
+WARNING:MapLib:701 - Signal adc_outb_p_i<3> connected to top level port
+   adc_outb_p_i<3> has been removed.
+WARNING:MapLib:701 - Signal adc_outa_p_i<2> connected to top level port
+   adc_outa_p_i<2> has been removed.
+WARNING:MapLib:701 - Signal adc_outb_p_i<2> connected to top level port
+   adc_outb_p_i<2> has been removed.
+WARNING:MapLib:701 - Signal adc_outa_p_i<1> connected to top level port
+   adc_outa_p_i<1> has been removed.
+WARNING:MapLib:701 - Signal adc_outb_p_i<1> connected to top level port
+   adc_outb_p_i<1> has been removed.
 WARNING:MapLib:701 - Signal adc_fr_n_i connected to top level port adc_fr_n_i
    has been removed.
+WARNING:MapLib:701 - Signal adc_outa_n_i<3> connected to top level port
+   adc_outa_n_i<3> has been removed.
+WARNING:MapLib:701 - Signal adc_outb_n_i<3> connected to top level port
+   adc_outb_n_i<3> has been removed.
+WARNING:MapLib:701 - Signal adc_outa_n_i<2> connected to top level port
+   adc_outa_n_i<2> has been removed.
+WARNING:MapLib:701 - Signal adc_outb_n_i<2> connected to top level port
+   adc_outb_n_i<2> has been removed.
+WARNING:MapLib:701 - Signal adc_outa_n_i<1> connected to top level port
+   adc_outa_n_i<1> has been removed.
+WARNING:MapLib:701 - Signal adc_outb_n_i<1> connected to top level port
+   adc_outb_n_i<1> has been removed.
 WARNING:MapLib:701 - Signal adc_spi_dout_o connected to top level port
    adc_spi_dout_o has been removed.
 WARNING:MapLib:701 - Signal adc_spi_sck_o connected to top level port
@@ -44,24 +68,6 @@ Running directed packing...
 WARNING:Pack:2949 - The I/O component adc_outb_p_i<0> uses an DQS_BIAS attribute
    with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
    selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outb_p_i<1> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outb_p_i<2> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outb_p_i<3> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outa_p_i<3> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outa_p_i<2> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outa_p_i<1> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
 WARNING:Pack:2949 - The I/O component adc_outa_p_i<0> uses an DQS_BIAS attribute
    with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
    selected I/O standard does not support DQS_BIAS usage.
@@ -74,24 +80,6 @@ WARNING:Pack:2949 - The I/O component userclk_200MHz_p uses an DQS_BIAS
 WARNING:Pack:2949 - The I/O component adc_outb_n_i<0> uses an DQS_BIAS attribute
    with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
    selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outb_n_i<1> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outb_n_i<2> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outb_n_i<3> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outa_n_i<3> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outa_n_i<2> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
-WARNING:Pack:2949 - The I/O component adc_outa_n_i<1> uses an DQS_BIAS attribute
-   with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
-   selected I/O standard does not support DQS_BIAS usage.
 WARNING:Pack:2949 - The I/O component adc_outa_n_i<0> uses an DQS_BIAS attribute
    with I/O standard LVDS_25. The DQS_BIAS attribute will be ignored since the
    selected I/O standard does not support DQS_BIAS usage.
@@ -100,56 +88,59 @@ Updating timing models...
 INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
    (.mrp).
 Running timing-driven placement...
-Total REAL time at the beginning of Placer: 48 secs 
-Total CPU  time at the beginning of Placer: 47 secs 
+Total REAL time at the beginning of Placer: 51 secs 
+Total CPU  time at the beginning of Placer: 49 secs 
 
 Phase 1.1  Initial Placement Analysis
-Phase 1.1  Initial Placement Analysis (Checksum:c55b6a3a) REAL time: 56 secs 
+Phase 1.1  Initial Placement Analysis (Checksum:6dec6352) REAL time: 1 mins 
 
 Phase 2.7  Design Feasibility Check
-Phase 2.7  Design Feasibility Check (Checksum:c55b6a3a) REAL time: 57 secs 
+Phase 2.7  Design Feasibility Check (Checksum:6dec6352) REAL time: 1 mins 1 secs 
 
 Phase 3.31  Local Placement Optimization
-Phase 3.31  Local Placement Optimization (Checksum:c55b6a3a) REAL time: 57 secs 
+Phase 3.31  Local Placement Optimization (Checksum:8247c7b3) REAL time: 1 mins 1 secs 
 
 Phase 4.2  Initial Placement for Architecture Specific Features
 
 Phase 4.2  Initial Placement for Architecture Specific Features
-(Checksum:9b3989ed) REAL time: 1 mins 8 secs 
+(Checksum:7b7e7664) REAL time: 1 mins 13 secs 
 
 Phase 5.30  Global Clock Region Assignment
-Phase 5.30  Global Clock Region Assignment (Checksum:9b3989ed) REAL time: 1 mins 8 secs 
+Phase 5.30  Global Clock Region Assignment (Checksum:7b7e7664) REAL time: 1 mins 13 secs 
 
 Phase 6.3  Local Placement Optimization
-Phase 6.3  Local Placement Optimization (Checksum:9b3989ed) REAL time: 1 mins 8 secs 
+Phase 6.3  Local Placement Optimization (Checksum:7b7e7664) REAL time: 1 mins 13 secs 
 
 Phase 7.5  Local Placement Optimization
-Phase 7.5  Local Placement Optimization (Checksum:9b3989ed) REAL time: 1 mins 8 secs 
+Phase 7.5  Local Placement Optimization (Checksum:7b7e7664) REAL time: 1 mins 13 secs 
 
 Phase 8.8  Global Placement
 ........................................
 .....
-...........................................................
-...........................................................................................................................
-..............................................................................................................................................................................................................................
-Phase 8.8  Global Placement (Checksum:6053ec97) REAL time: 11 mins 22 secs 
+.....................................
+...............................................................................................................................................................................................................................
+....................................................................................................................................................
+Phase 8.8  Global Placement (Checksum:4f6158a1) REAL time: 11 mins 25 secs 
 
 Phase 9.5  Local Placement Optimization
-Phase 9.5  Local Placement Optimization (Checksum:6053ec97) REAL time: 11 mins 23 secs 
+Phase 9.5  Local Placement Optimization (Checksum:4f6158a1) REAL time: 11 mins 25 secs 
 
 Phase 10.18  Placement Optimization
-Phase 10.18  Placement Optimization (Checksum:9bccf409) REAL time: 12 mins 16 secs 
+Phase 10.18  Placement Optimization (Checksum:b54e338c) REAL time: 12 mins 8 secs 
 
 Phase 11.5  Local Placement Optimization
-Phase 11.5  Local Placement Optimization (Checksum:9bccf409) REAL time: 12 mins 16 secs 
+Phase 11.5  Local Placement Optimization (Checksum:b54e338c) REAL time: 12 mins 9 secs 
 
 Phase 12.34  Placement Validation
-Phase 12.34  Placement Validation (Checksum:9bccf409) REAL time: 12 mins 16 secs 
+Phase 12.34  Placement Validation (Checksum:b54e338c) REAL time: 12 mins 9 secs 
 
-Total REAL time to Placer completion: 12 mins 17 secs 
-Total CPU  time to Placer completion: 12 mins 16 secs 
+Total REAL time to Placer completion: 12 mins 10 secs 
+Total CPU  time to Placer completion: 12 mins 6 secs 
 Running post-placement packing...
 Writing output files...
+WARNING:PhysDesignRules:372 - Gated clock. Clock net icon_control0<13> is
+   sourced by a combinatorial pin. This is not good design practice. Use the CE
+   pin to control the loading of data into the flip-flop.
 WARNING:PhysDesignRules:367 - The signal <adc_spi_din_i_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <clk_200MHz> is incomplete. The signal
@@ -165,6 +156,10 @@ WARNING:PhysDesignRules:367 - The signal <adc_one_wire_b_IBUF> is incomplete.
 WARNING:PhysDesignRules:367 - The signal <trn_reset_n> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal
+   <make4Lanes.pcieCore/v7_pcie_i/gt_top_i/pipe_wrapper_i/pipe_lane[2].pipe_user
+   _i/USER_OOBCLK_IN> is incomplete. The signal does not drive any load pins in
+   the design.
+WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline
    _inst/NULL_RX_tkeep<5>> is incomplete. The signal does not drive any load
    pins in the design.
@@ -172,10 +167,6 @@ WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline
    _inst/NULL_RX_tkeep<4>> is incomplete. The signal does not drive any load
    pins in the design.
-WARNING:PhysDesignRules:367 - The signal
-   <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/axi_basic_top_i/rx_inst/rx_pipeline
-   _inst/NULL_RDST_RDY> is incomplete. The signal does not drive any load pins
-   in the design.
 WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_rx_raddr<12>> is
    incomplete. The signal does not drive any load pins in the design.
@@ -200,46 +191,6 @@ WARNING:PhysDesignRules:367 - The signal
 WARNING:PhysDesignRules:367 - The signal
    <make4Lanes.pcieCore/v7_pcie_i/pcie_top_i/pcie_7x_i/mim_tx_waddr<11>> is
    incomplete. The signal does not drive any load pins in the design.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[3].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[5].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[7].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[0].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[2].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[4].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[6].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
-WARNING:PhysDesignRules:2165 - Issue with pin connections and/or configuration
-   on
-   block:<cmp_fmc_adc_100Ms_core/cmp_adc_serdes/pins[1].iserdese2_master>:<ISERD
-   ESE2_ISERDESE2>.  Useless CE2 input pin. With NUM_CE set 1, the CE2 input pin
-   is being ignored.
 WARNING:PhysDesignRules:367 - The signal
    <theTlpControl/rx_Itf/Rx_Input_Delays/trn_rrem_n<0>> is incomplete. The
    signal does not drive any load pins in the design.
@@ -249,40 +200,40 @@ Design Summary
 
 Design Summary:
 Number of errors:      0
-Number of warnings:   57
+Number of warnings:   50
 Slice Logic Utilization:
-  Number of Slice Registers:                 7,763 out of 269,200    2%
-    Number used as Flip Flops:               7,763
-    Number used as Latches:                      0
+  Number of Slice Registers:                 8,039 out of 269,200    2%
+    Number used as Flip Flops:               8,038
+    Number used as Latches:                      1
     Number used as Latch-thrus:                  0
     Number used as AND/OR logics:                0
-  Number of Slice LUTs:                      7,786 out of 134,600    5%
-    Number used as logic:                    7,129 out of 134,600    5%
-      Number using O6 output only:           4,905
-      Number using O5 output only:             506
-      Number using O5 and O6:                1,718
+  Number of Slice LUTs:                      8,160 out of 134,600    6%
+    Number used as logic:                    7,267 out of 134,600    5%
+      Number using O6 output only:           4,982
+      Number using O5 output only:             557
+      Number using O5 and O6:                1,728
       Number used as ROM:                        0
-    Number used as Memory:                     298 out of  46,200    1%
+    Number used as Memory:                     363 out of  46,200    1%
       Number used as Dual Port RAM:              0
       Number used as Single Port RAM:            0
-      Number used as Shift Register:           298
-        Number using O6 output only:           298
-        Number using O5 output only:             0
-        Number using O5 and O6:                  0
-    Number used exclusively as route-thrus:    359
-      Number with same-slice register load:    322
-      Number with same-slice carry load:        37
+      Number used as Shift Register:           363
+        Number using O6 output only:           353
+        Number using O5 output only:             1
+        Number using O5 and O6:                  9
+    Number used exclusively as route-thrus:    530
+      Number with same-slice register load:    486
+      Number with same-slice carry load:        44
       Number with other load:                    0
 
 Slice Logic Distribution:
-  Number of occupied Slices:                 3,249 out of  33,650    9%
-  Number of LUT Flip Flop pairs used:        9,383
-    Number with an unused Flip Flop:         2,815 out of   9,383   30%
-    Number with an unused LUT:               1,597 out of   9,383   17%
-    Number of fully used LUT-FF pairs:       4,971 out of   9,383   52%
-    Number of unique control sets:             199
+  Number of occupied Slices:                 2,955 out of  33,650    8%
+  Number of LUT Flip Flop pairs used:        9,445
+    Number with an unused Flip Flop:         2,807 out of   9,445   29%
+    Number with an unused LUT:               1,285 out of   9,445   13%
+    Number of fully used LUT-FF pairs:       5,353 out of   9,445   56%
+    Number of unique control sets:             252
     Number of slice register sites lost
-      to control set restrictions:             691 out of 269,200    1%
+      to control set restrictions:             957 out of 269,200    1%
 
   A LUT Flip Flop pair for this architecture represents one LUT paired with
   one Flip Flop within a slice.  A control set is a unique combination of
@@ -293,8 +244,8 @@ Slice Logic Distribution:
   over-mapped for a non-BRAM resource or if placement fails.
 
 IO Utilization:
-  Number of bonded IOBs:                        59 out of     400   14%
-    Number of LOCed IOBs:                       59 out of      59  100%
+  Number of bonded IOBs:                        47 out of     400   11%
+    Number of LOCed IOBs:                       47 out of      47  100%
     Number of bonded IPADs:                     10
     Number of bonded OPADs:                      8
 
@@ -302,15 +253,17 @@ Specific Feature Utilization:
   Number of RAMB36E1/FIFO36E1s:                 66 out of     365   18%
     Number using RAMB36E1 only:                 65
     Number using FIFO36E1 only:                  1
-  Number of RAMB18E1/FIFO18E1s:                  0 out of     730    0%
-  Number of BUFG/BUFGCTRLs:                      9 out of      32   28%
-    Number used as BUFGs:                        8
+  Number of RAMB18E1/FIFO18E1s:                  1 out of     730    1%
+    Number using RAMB18E1 only:                  1
+    Number using FIFO18E1 only:                  0
+  Number of BUFG/BUFGCTRLs:                     10 out of      32   31%
+    Number used as BUFGs:                        9
     Number used as BUFGCTRLs:                    1
   Number of IDELAYE2/IDELAYE2_FINEDELAYs:        0 out of     500    0%
-  Number of ILOGICE2/ILOGICE3/ISERDESE2s:        8 out of     500    1%
+  Number of ILOGICE2/ILOGICE3/ISERDESE2s:        2 out of     500    1%
     Number used as ILOGICE2s:                    0
   Number used as  ILOGICE3s:                     0
-    Number used as ISERDESE2s:                   8
+    Number used as ISERDESE2s:                   2
   Number of ODELAYE2/ODELAYE2_FINEDELAYs:        0
   Number of OLOGICE2/OLOGICE3/OSERDESE2s:        2 out of     500    1%
     Number used as OLOGICE2s:                    2
@@ -318,7 +271,7 @@ Specific Feature Utilization:
     Number used as OSERDESE2s:                   0
   Number of PHASER_IN/PHASER_IN_PHYs:            0 out of      40    0%
   Number of PHASER_OUT/PHASER_OUT_PHYs:          0 out of      40    0%
-  Number of BSCANs:                              0 out of       4    0%
+  Number of BSCANs:                              1 out of       4   25%
   Number of BUFHCEs:                             0 out of     120    0%
   Number of BUFRs:                               0 out of      40    0%
   Number of CAPTUREs:                            0 out of       1    0%
@@ -344,11 +297,12 @@ Specific Feature Utilization:
   Number of STARTUPs:                            0 out of       1    0%
   Number of XADCs:                               0 out of       1    0%
 
-Average Fanout of Non-Clock Nets:                3.83
+  Number of RPM macros:            9
+Average Fanout of Non-Clock Nets:                3.78
 
-Peak Memory Usage:  1727 MB
-Total REAL time to MAP completion:  12 mins 25 secs 
-Total CPU time to MAP completion:   12 mins 25 secs 
+Peak Memory Usage:  1738 MB
+Total REAL time to MAP completion:  12 mins 18 secs 
+Total CPU time to MAP completion:   12 mins 14 secs 
 
 Mapping completed.
 See MAP report file "v6pcieDMA_map.mrp" for details.

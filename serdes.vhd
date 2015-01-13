@@ -102,7 +102,7 @@ architecture Behavioral of serdes is
   signal inc_out_uc             : std_logic;
   signal regrst_out_uc          : std_logic;
   constant num_serial_bits         : integer := dev_w/sys_w;
-  type serdarr is array (0 to 7) of std_logic_vector(sys_w-1 downto 0);
+  type serdarr is array (0 to 13) of std_logic_vector(sys_w-1 downto 0);
   -- Array to use intermediately from the serdes to the internal
   --  devices. bus "0" is the leftmost bus
   -- * fills in starting with 0
@@ -167,26 +167,26 @@ begin
          INTERFACE_TYPE    => "NETWORKING", 
          DYN_CLKDIV_INV_EN => "FALSE",
          DYN_CLK_INV_EN    => "FALSE",
-         NUM_CE            => 1,
+         NUM_CE            => 2,
          OFB_USED          => "FALSE",
          IOBDELAY          => "NONE",                             -- Use input at D to output the data on Q1-Q6
          SERDES_MODE       => "MASTER")
        port map (
-         Q1                => iserdes_q(3)(pin_count),
-         Q2                => iserdes_q(2)(pin_count),
-         Q3                => iserdes_q(1)(pin_count),
-         Q4                => iserdes_q(0)(pin_count),
-			--Q5						=> iserdes_q(3)(pin_count),
-         --Q6                => iserdes_q(2)(pin_count),
-         --Q7                => iserdes_q(1)(pin_count),
-         --Q8                => iserdes_q(0)(pin_count),
+         Q1                => iserdes_q(0)(pin_count),
+         Q2                => iserdes_q(1)(pin_count),
+         Q3                => iserdes_q(2)(pin_count),
+         Q4                => iserdes_q(3)(pin_count),
+			Q5						=> iserdes_q(4)(pin_count),
+         Q6                => iserdes_q(5)(pin_count),
+         Q7                => iserdes_q(6)(pin_count),
+         Q8                => iserdes_q(7)(pin_count),
 			
-         SHIFTOUT1         => icascade1(pin_count),
+         SHIFTOUT1         => open,--icascade1(pin_count),
          SHIFTOUT2         => open,
          BITSLIP           => BITSLIP,                            -- 1-bit Invoke Bitslip. This can be used with any 
                                                                   -- DATA_WIDTH, cascaded or not.
          CE1               => clock_enable,                       -- 1-bit Clock enable input
-         CE2               => '0',--clock_enable,                       -- 1-bit Clock enable input
+         CE2               => clock_enable,                       -- 1-bit Clock enable input
          CLK               => CLK_IN,                             -- Fast clock driven by MMCM
          CLKB              => '0',--clk_in_int_inv,                     -- Locally inverted clock
          CLKDIV            => CLK_DIV_IN,                         -- Slow clock driven by MMCM
@@ -194,7 +194,7 @@ begin
          D                 => data_in_from_pins_delay(pin_count), -- 1-bit Input signal from IOB.
          DDLY              => '0',
          RST               => IO_RESET,                           -- 1-bit Asynchronous reset only.
-         SHIFTIN1          => icascade2(pin_count),
+         SHIFTIN1          => '0',--icascade2(pin_count),
          SHIFTIN2          => '0',
         -- unused connections
          DYNCLKDIVSEL      => '0',
@@ -204,44 +204,44 @@ begin
          OCLKB             => '0',
          O                 => open);                              -- unregistered output of ISERDESE1
 
-     iserdese2_slave : ISERDESE2
-       generic map (
-         DATA_RATE         => "SDR",
-         DATA_WIDTH        => 8,
-         INTERFACE_TYPE    => "NETWORKING", 
-         DYN_CLKDIV_INV_EN => "FALSE",
-         DYN_CLK_INV_EN    => "FALSE",
-         NUM_CE            => 1,
-         OFB_USED          => "FALSE",
-         IOBDELAY          => "NONE",                             -- Use input at D to output the data on Q1-Q6
-         SERDES_MODE       => "SLAVE")
-       port map (
-         Q1                => iserdes_q(7)(pin_count),
-         Q2                => iserdes_q(6)(pin_count),
-         Q3                => iserdes_q(5)(pin_count),
-         Q4                => iserdes_q(4)(pin_count),
-         SHIFTOUT1         => icascade2(pin_count),
-         SHIFTOUT2         => open,
-         BITSLIP           => BITSLIP,                            -- 1-bit Invoke Bitslip. This can be used with any 
+----     iserdese2_slave : ISERDESE2
+----       generic map (
+----         DATA_RATE         => "SDR",
+----         DATA_WIDTH        => 8,
+----         INTERFACE_TYPE    => "NETWORKING", 
+----         DYN_CLKDIV_INV_EN => "FALSE",
+----         DYN_CLK_INV_EN    => "FALSE",
+----         NUM_CE            => 2,
+----         OFB_USED          => "FALSE",
+----         IOBDELAY          => "NONE",                             -- Use input at D to output the data on Q1-Q6
+----         SERDES_MODE       => "SLAVE")
+----       port map (
+----         Q1                => iserdes_q(7)(pin_count),
+----         Q2                => iserdes_q(6)(pin_count),
+----         Q3                => iserdes_q(5)(pin_count),
+----         Q4                => iserdes_q(4)(pin_count),
+----         SHIFTOUT1         => icascade2(pin_count),
+----         SHIFTOUT2         => open,
+----         BITSLIP           => BITSLIP,                            -- 1-bit Invoke Bitslip. This can be used with any 
                                                                   -- DATA_WIDTH, cascaded or not.
-         CE1               => clock_enable,                       -- 1-bit Clock enable input
-         CE2               => '0',--clock_enable,                       -- 1-bit Clock enable input
-         CLK               => CLK_IN,                             -- Fast clock driven by MMCM
-         CLKB              => '0',--clk_in_int_inv,                     -- Locally inverted clock
-         CLKDIV            => CLK_DIV_IN,                         -- Slow clock driven by MMCM
-         CLKDIVP           => '0',
-         D                 => '0',--data_in_from_pins_delay(pin_count), -- 1-bit Input signal from IOB.
-         DDLY              => '0',
-         RST               => IO_RESET,                           -- 1-bit Asynchronous reset only.
-         SHIFTIN1          => icascade1(pin_count),
-         SHIFTIN2          => '0',
+----         CE1               => clock_enable,                       -- 1-bit Clock enable input
+----         CE2               => '0',--clock_enable,                       -- 1-bit Clock enable input
+----         CLK               => CLK_IN,                             -- Fast clock driven by MMCM
+----         CLKB              => '0',--clk_in_int_inv,                     -- Locally inverted clock
+----         CLKDIV            => CLK_DIV_IN,                         -- Slow clock driven by MMCM
+----         CLKDIVP           => '0',
+----        D                 => '0',--data_in_from_pins_delay(pin_count), -- 1-bit Input signal from IOB.
+----         DDLY              => '0',
+----         RST               => IO_RESET,                           -- 1-bit Asynchronous reset only.
+----         SHIFTIN1          => icascade1(pin_count),
+----         SHIFTIN2          => '0',
         -- unused connections
-         DYNCLKDIVSEL      => '0',
-         DYNCLKSEL         => '0',
-         OFB               => '0',
-         OCLK              => '0',
-         OCLKB             => '0',
-         O                 => open);                              -- unregistered output of ISERDESE1
+----         DYNCLKDIVSEL      => '0',
+----         DYNCLKSEL         => '0',
+----         OFB               => '0',
+----         OCLK              => '0',
+----         OCLKB             => '0',
+----         O                 => open);                              -- unregistered output of ISERDESE1
      -- Concatenate the serdes outputs together. Keep the timesliced
      --   bits together, and placing the earliest bits on the right
      --   ie, if data comes in 0, 1, 2, 3, 4, 5, 6, 7, ...
@@ -250,12 +250,15 @@ begin
 
      in_slices: for slice_count in 0 to num_serial_bits-1 generate begin
         -- This places the first data in time on the right
-        --DATA_IN_TO_DEVICE(slice_count*sys_w+sys_w-1 downto slice_count*sys_w) <=
-        --  iserdes_q(num_serial_bits-slice_count-1);
+        ------DATA_IN_TO_DEVICE(slice_count*sys_w+sys_w-1 downto slice_count*sys_w) <=
+        ------iserdes_q(num_serial_bits-slice_count-1);
         -- To place the first data in time on the left, use the
         --   following code, instead
-         DATA_IN_TO_DEVICE(slice_count*sys_w+sys_w-1 downto slice_count*sys_w) <=
-           iserdes_q(slice_count);
+         -----DATA_IN_TO_DEVICE(slice_count*sys_w+sys_w-1 downto slice_count*sys_w) <=
+         -----  iserdes_q(slice_count);
+			
+			DATA_IN_TO_DEVICE(slice_count*sys_w+sys_w-1 downto slice_count*sys_w) <=
+         iserdes_q(slice_count);
      end generate in_slices;
 
 

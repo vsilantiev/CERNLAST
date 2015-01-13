@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-12-17T20:48:52</DateModified>
+  <DateModified>2015-01-13T16:56:03</DateModified>
   <ModuleName>v6pcieDMA</ModuleName>
-  <SummaryTimeStamp>2014-12-17T17:42:45</SummaryTimeStamp>
-  <SavedFilePath>/home/vladimir/CERN/CERNLAST/iseconfig/v6pcieDMA.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/vladimir/CERN/CERNLAST/</ImplementationReportsDirectory>
+  <SummaryTimeStamp>2015-01-13T16:56:03</SummaryTimeStamp>
+  <SavedFilePath>/home/vladimir/CERNLAST/iseconfig/v6pcieDMA.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/vladimir/CERNLAST/</ImplementationReportsDirectory>
   <DateInitialized>2014-08-22T11:02:27</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
